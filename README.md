@@ -5,7 +5,7 @@ Sistema web, com backend desenvolvido em Java, e frontend desenvolvido com HTML,
 - Hibernate;
 - JPA;
 - Thymeleaf;
-- Boostrap;
+- Bootstrap;
 - Rest;
 - Banco de dados: MySQL;
 
