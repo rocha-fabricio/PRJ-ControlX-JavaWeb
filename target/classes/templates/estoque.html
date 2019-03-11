@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/resources/css/principal.css?version=12" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/resources/css/form.css?version=12" />
+<!------ Include the above in your HEAD tag ---------->
+
+<title>ControlX - Gerenciar Estoque</title>
+</head>
+<body id="container">
+	<div id="wrapper">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul id="sidebar_menu" class="sidebar-nav">
+				<li class="sidebar-brand"><a id="menu-toggle" href="#">ControlX<span
+						id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+			</ul>
+			<div id="menu"></div>
+		</div>
+
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset div! -->
+			<div class="page-content inset">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p class="well lead">Gerenciar Estoque</p>
+						<div class="row">
+							<div class="container-fluid bg-white">
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-12 text-center">
+											<div class="container-fluid" id="form">
+												<a href="/cadastrarProduto"><button type="button"
+														class="btn btn-danger btn-lg">Adicionar Produto</button></a> <a
+													href="categorias.html"><button
+														class="btn btn-danger btn-lg">Categorias</button></a>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 text-center">
+											<div class="container-fluid" id="form">
+												<form action="pesquisarProduto" method="post">
+													<label>Pesquisar produto:</label> <input name="pesquisa">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="tipoPesquisa"
+															value="nome" checked> <label
+															class="form-check-label" for="inlineRadio1">Nome</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="tipoPesquisa"
+															value="id"> <label class="form-check-label"
+															for="inlineRadio2">ID</label>
+													</div>
+													<input type="submit" value="Buscar">
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="row list-view">
+										<table class="responsive-table">
+											<tr>
+												<th style="text-align: center;">ID</th>
+												<th style="text-align: center;">Nome</th>
+												<th style="text-align: center;">Quantidade</th>
+												<th style="text-align: center;">Un</th>
+												<th style="text-align: center;">Preço</th>
+												<!-- <th style="text-align: center;">Categoria</th> -->
+												<th style="text-align: center;">Editar</th>
+											</tr>
+											<tr th:each="produto : ${produtos}">
+												<td th:text="${produto.id}"></td>
+												<td th:text="${produto.nome}"></td>
+												<td th:text="${produto.qtd}"></td>
+												<td th:text="${produto.tipoUn}"></td>
+												<td th:text="${produto.preco}"></td>
+												<!-- <td th:text="${produto.categoria}"></td> -->
+												<td><a
+													th:href="@{/editarProduto/{idproduto}(idproduto=${produto.id})}"><img
+														src="/resources/img/editar.png" width="20px" height="20px"
+														title="Editar"></img></a></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- fim div da esquerda -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#menu").load("/menu");
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	</script>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

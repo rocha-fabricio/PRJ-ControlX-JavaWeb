@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+
+<!--  jQuery -->
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+<link rel="stylesheet"
+	href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/principal.css?version=12" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/form.css?version=12" />
+<!------ Include the above in your HEAD tag ---------->
+
+<title>ControlX - Gerenciar Usuario</title>
+</head>
+<body id="container">
+	<div id="wrapper" class="">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul id="sidebar_menu" class="sidebar-nav">
+				<li class="sidebar-brand"><a id="menu-toggle" href="#">ControlX<span
+						id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+			</ul>
+			<div id="menu"></div>
+		</div>
+
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset div! -->
+			<div class="page-content inset">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p class="well lead">Gerenciar Usuario</p>
+						<div class="row">
+							<div class="container p-5 bg-white">
+
+								<form>
+									<div class="row">
+										<div class="col-12">
+											<h3 class="mb-5">Dados do usuário</h3>
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-2">
+											<label for="id">ID</label> <input readonly="readonly"
+												type="number" class="form-control" id="id" placeholder="ID"
+												th:value="${usuario.id}">
+										</div>
+										<div class="form-group col-md-5">
+											<label for="nome">Nome:</label> <input type="text"
+												class="form-control" id="nome" placeholder="Nome do usuario"
+												th:value="${usuario.nome}">
+										</div>
+										<div class="form-group col-5">
+											<label for="sobrenome">Sobrenome:</label> <input type="text"
+												class="form-control" id="sobrenome" placeholder="Sobrenome"
+												th:value="${usuario.sobrenome}">
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-3" id="dateNasc">
+											<label for="dataNasc">Data de nascimento:</label> <input
+												type="text" class="form-control" id="date" name="date"
+												placeholder="Data de nascimento"
+												th:value="${usuario.dataNasc}" autocomplete="off">
+										</div>
+										<div class="form-group col-3">
+											<label for="cpf">CPF:</label> <input type="text"
+												class="form-control" id="cpf" placeholder="CPF"
+												th:value="${usuario.cpf}">
+										</div>
+										<div class="form-group col-md-3">
+											<label for="sexo">Sexo:</label> <select id="un"
+												class="form-control">
+												<option th:text="${usuario.sexo}" selected>Escolha...</option>
+												<option th:value="0">Masculino</option>
+												<option th:value="1">Feminino</option>
+											</select>
+										</div>
+										<div class="form-group col-3">
+											<label for="fone">Telefone:</label> <input type="text"
+												class="form-control" id="fone" placeholder="Telefone"
+												th:value="${usuario.fone}">
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-12">
+											<h3 class="mb-5">Endereço</h3>
+										</div>
+									</div>
+									<div class="form-row text-center">
+										<div class="form-group col-2">
+											<label for="cep">Cep:</label> <input type="text"
+												class="form-control" id="cep" placeholder="Cep"
+												th:value="${usuario.cep}">
+										</div>
+										<div class="form-group col-3">
+											<label for="rua">Rua:</label> <input type="text"
+												class="form-control" id="rua" placeholder="Rua"
+												th:value="${usuario.rua}">
+										</div>
+										<div class="form-group col-2">
+											<label for="numero">Numero:</label> <input type="text"
+												class="form-control" id="numero" placeholder="Numero"
+												th:value="${usuario.numero}">
+										</div>
+										<div class="form-group col-3">
+											<label for="cidade">Cidade:</label> <input type="text"
+												class="form-control" id="cidade" placeholder="Cidade"
+												th:value="${usuario.cidade}">
+										</div>
+										<div class="form-group col-2">
+											<label for="estado">Estado:</label> <select id="estado"
+												class="form-control">
+												<option th:value="${usuario.estado}"
+													th:text="${usuario.estado}" selected>Escolha...</option>
+												<option th:value="AC">Acre</option>
+												<option th:value="AL">Alagoas</option>
+												<option th:value="AP">Amapá</option>
+												<option th:value="AM">Amazonas</option>
+												<option th:value="BA">Bahia</option>
+												<option th:value="CE">Ceará</option>
+												<option th:value="DF">Distrito Federal</option>
+												<option th:value="ES">Espírito Santo</option>
+												<option th:value="GO">Goiás</option>
+												<option th:value="MA">Maranhão</option>
+												<option th:value="MT">Mato Grosso</option>
+												<option th:value="MS">Mato Grosso do Sul</option>
+												<option th:value="MG">Minas Gerais</option>
+												<option th:value="PA">Pará</option>
+												<option th:value="PB">Paraíba</option>
+												<option th:value="PR">Paraná</option>
+												<option th:value="PE">Pernambuco</option>
+												<option th:value="PI">Piauí</option>
+												<option th:value="RJ">Rio de Janeiro</option>
+												<option th:value="RN">Rio Grande do Norte</option>
+												<option th:value="RS">Rio Grande do Sul</option>
+												<option th:value="RO">Rondônia</option>
+												<option th:value="RR">Roraima</option>
+												<option th:value="SC">Santa Catarina</option>
+												<option th:value="SP">São Paulo</option>
+												<option th:value="SE">Sergipe</option>
+												<option th:value="TO">Tocantins</option>
+											</select>
+										</div>
+									</div>
+									<hr>
+									<div class="row">
+										<div class="col-12">
+											<h3 class="mb-5">Dados de acesso</h3>
+										</div>
+									</div>
+									<div class="form-row text-center">
+										<div class="form-group col-4">
+											<label for="login">Usuario:</label> <input type="text"
+												class="form-control" id="login" placeholder="Usuário"
+												th:value="${usuario.login}">
+										</div>
+										<div class="form-group col-4">
+											<label for="senha">Senha:</label> <input type="password"
+												class="form-control" id="senha" placeholder="Senha"
+												th:value="${usuario.senha}">
+										</div>
+										<div class="form-group col-4">
+											<label for="cargo">Cargo:</label> <select id="cargo"
+												class="form-control">
+												<option th:value="${usuario.estado}"
+													th:text="${usuario.cargo}" selected>Escolha...</option>
+												<option>Vendedor</option>
+												<option>Almoxarife</option>
+												<option>Gerente</option>
+												<option>Administrador</option>
+											</select>
+										</div>
+									</div>
+									<br> <a href="usuarios.html"><button type="button"
+											class="btn btn-danger">Voltar</button></a>
+									<button type="submit" class="btn btn-danger">Salvar</button>
+
+									<button type="button" class="btn btn-secondary"
+										data-toggle="modal" data-target="#exampleModal">Remover</button>
+
+								</form>
+
+							</div>
+						</div>
+						<!-- fim div da esquerda -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$("#menu").load("menu.html");
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	</script>
+	<!-- Optional JavaScript -->
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript">
+		$('#dateNasc input').datepicker({
+			format : "dd/mm/yyyy",
+			clearBtn : true,
+			language : "pt-BR",
+		});
+	</script>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>

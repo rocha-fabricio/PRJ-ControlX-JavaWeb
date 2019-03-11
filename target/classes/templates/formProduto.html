@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/resources/css/principal.css?version=12" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/resources/css/form.css?version=12" />
+<!------ Include the above in your HEAD tag ---------->
+
+<title>ControlX - Gerenciar Estoque</title>
+</head>
+<body id="container">
+	<div id="wrapper" class="">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul id="sidebar_menu" class="sidebar-nav">
+				<li class="sidebar-brand"><a id="menu-toggle" href="#">ControlX<span
+						id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+			</ul>
+			<div id="menu"></div>
+		</div>
+
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset div! -->
+			<div class="page-content inset">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p class="well lead">Gerenciar Estoque</p>
+						<div class="alert alert-danger" role="alert" th:each="m : ${msg}"><span th:text="${m}"></span></div>
+						<div class="row">
+							<div class="container p-5 bg-white">
+
+								<form method="post" action="salvarProduto"
+									th:object="${produtoObj}">
+									<div class="form-row">
+										<div class="form-group col-2">
+											<label for="id">ID</label> <input readonly="readonly"
+												type="number" class="form-control" placeholder="ID"
+												th:field="*{id}">
+										</div>
+										<div class="form-group col-md-10">
+											<label for="nome">Nome:</label> <input type="text"
+												class="form-control" name="nome"
+												placeholder="Nome do produto" th:field="*{nome}" required >
+										</div>
+									</div>
+									<div class="form-row">
+										<div class="form-group col-3">
+											<label for="preco">Preço:</label> <input type="number"
+												class="form-control" name="preco" placeholder="Preço"
+												th:field="*{preco}" required>
+										</div>
+										<div class="form-group col-3">
+											<label for="qtd">Quantidade:</label> <input type="number"
+												class="form-control" name="qtd" placeholder="Quantidade"
+												th:field="*{qtd}" required>
+										</div>
+										<div class="form-group col-md-3">
+											<label for="un">Unidade de medida:</label> <select
+												name="tipoUn" class="form-control" th:field="*{tipoUn}">
+												<option th:value="0" selected disabled>Escolha...</option>
+												<option th:value="un">Unidade (un)</option>
+												<option th:value="kg">Quilograma (kg)</option>
+												<option th:value="l">Litro (l)</option>
+												<option th:value="ml">Mililitro (ml)</option>
+												<option th:value="g">Grama (g)</option>
+												<option th:value="m">Metro (m)</option>
+												<option th:value="cm">Centimetro (cm)</option>
+											</select>
+										</div>
+										<div class="form-group col-3">
+											<label for="qtdMin">Quantidade minima:</label> <input
+												type="number" class="form-control" name="estoqueMin"
+												placeholder="Quantidade minima" th:field="*{estoqueMin}"
+												required>
+										</div>
+									</div>
+									<div class="form-row text-center">
+										<div class="form-group col-md-6">
+											<label for="forn">Fornecedor:</label> <select id="forn"
+												class="form-control">
+												<option disabled selected>Escolha...</option>
+												<option th:each="fornecedor : ${fornecedores}"
+													th:text="${fornecedor.nome}"></option>
+											</select>
+										</div>
+										<div class="form-group col-md-6">
+											<label for="cat">Categoria:</label> <select id="cat"
+												class="form-control">
+												<option selected>Escolha...</option>
+												<option th:each="categoria : ${categorias}"
+													th:text="${categoria.nome}"></option>
+											</select>
+										</div>
+									</div>
+									<br> <a href="/estoque"><button type="button"
+											class="btn btn-danger">Voltar</button></a>
+									<button type="submit" class="btn btn-danger">Salvar</button>
+
+									<button th:if="${edit}" th:onclick="return remover();"
+										type="button" class="btn btn-secondary">Remover</button>
+
+								</form>
+
+							</div>
+						</div>
+						<!-- fim div da esquerda -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$("#menu").load("/menu");
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	</script>
+
+	<!-- Javascript com Thymeleaf -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function remover() {
+			if (confirm("Tem certeza que deseja remover?"))
+				/*[+ var url =  [[@{/removerProduto/{idproduto}(idproduto=${id})}]];
+				+]*/
+				location.href = url;
+			alert("Removido com sucesso!");
+		}
+		/*]]>*/
+	</script>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</body>
+</html>
