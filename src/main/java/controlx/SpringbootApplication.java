@@ -15,9 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan(basePackages= {"controlx.*"})
 @EnableJpaRepositories(basePackages= {"controlx.repository"})
 @EnableTransactionManagement
-@EnableWebMvc
 @RestController
-@EnableAutoConfiguration
 public class SpringbootApplication {
 
 	public static void main(String[] args) {
