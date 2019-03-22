@@ -9,10 +9,10 @@ public class MappingController {
 	public String menu() {
 		return "menu";
 	}
-	
-	@GetMapping("/formProduto")
-	public String formProduto() {
-		return "formproduto";
+
+	@GetMapping("/principal")
+	private String principal() {
+		return "principal";
 	}
 	
 }

@@ -18,19 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import controlx.model.Produto;
+import controlx.repository.CategoriaRepository;
 import controlx.repository.ProdutoRepository;
 
 @Controller
-@RestController
 public class ProdutoController {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	@Autowired
+	private CategoriaRepository categoriaRepository;
 
 	@GetMapping("/cadastrarProduto")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
 		modelAndView.addObject("produtoObj", new Produto());
+		modelAndView.addObject("categorias", categoriaRepository.findAll());
 		return modelAndView;
 	}
 
@@ -39,6 +42,7 @@ public class ProdutoController {
 		Optional<Produto> produto = produtoRepository.findById(idproduto);
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
 		modelAndView.addObject("produtoObj", produto.get());
+		modelAndView.addObject("categorias", categoriaRepository.findAll());
 		modelAndView.addObject("edit", "");
 		modelAndView.addObject("id", idproduto);
 		return modelAndView;

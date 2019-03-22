@@ -105,10 +105,9 @@
 										</div>
 										<div class="form-group col-md-6">
 											<label for="cat">Categoria:</label> <select id="cat"
-												class="form-control">
-												<option selected>Escolha...</option>
-												<option th:each="categoria : ${categorias}"
-													th:text="${categoria.nome}"></option>
+												class="form-control" th:each="categoria : ${categorias}" name="categoria">
+												<option disabled selected>Escolha...</option>
+												<option th:value="${categoria.id}" th:text="${categoria.nome}"></option>
 											</select>
 										</div>
 									</div>

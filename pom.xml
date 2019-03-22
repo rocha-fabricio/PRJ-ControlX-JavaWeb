@@ -12,7 +12,8 @@
 	<groupId>controlx</groupId>
 	<artifactId>controlx</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<packaging>war</packaging>
+	<name>ControlX</name>
 	<description>ControlX</description>
 
 	<properties>
@@ -28,10 +29,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
+			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -40,10 +39,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-core</artifactId>
-		</dependency>  -->
+		<!-- <dependency> <groupId>org.springframework.session</groupId> <artifactId>spring-session-core</artifactId> 
+			</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,6 +75,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -100,7 +103,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	
+
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>

@@ -53,7 +53,7 @@
 											<div class="container-fluid" id="form">
 												<a href="/cadastrarProduto"><button type="button"
 														class="btn btn-danger btn-lg">Adicionar Produto</button></a> <a
-													href="categorias.html"><button
+													href="/categorias"><button
 														class="btn btn-danger btn-lg">Categorias</button></a>
 											</div>
 										</div>
@@ -86,7 +86,7 @@
 												<th style="text-align: center;">Quantidade</th>
 												<th style="text-align: center;">Un</th>
 												<th style="text-align: center;">Preço</th>
-												<!-- <th style="text-align: center;">Categoria</th> -->
+												<th style="text-align: center;">Categoria</th>
 												<th style="text-align: center;">Editar</th>
 											</tr>
 											<tr th:each="produto : ${produtos}">
@@ -95,7 +95,7 @@
 												<td th:text="${produto.qtd}"></td>
 												<td th:text="${produto.tipoUn}"></td>
 												<td th:text="${produto.preco}"></td>
-												<!-- <td th:text="${produto.categoria}"></td> -->
+												<td th:text="${produto.categoria.nome}"></td>
 												<td><a
 													th:href="@{/editarProduto/{idproduto}(idproduto=${produto.id})}"><img
 														src="/resources/img/editar.png" width="20px" height="20px"
