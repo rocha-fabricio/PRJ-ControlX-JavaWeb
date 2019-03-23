@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.beans.factory.annotation.Value;
+
 @Entity
 public class Categoria {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,6 +25,9 @@ public class Categoria {
     private String nome;
 	@OneToMany(mappedBy = "categoria", targetEntity = Produto.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Produto> produtos;
+	
+	@Value("false")
+	private boolean deleted;
 
 	public Long getId() {
 		return id;
@@ -35,5 +40,17 @@ public class Categoria {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}	
 }

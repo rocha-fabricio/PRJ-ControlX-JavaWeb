@@ -3,6 +3,7 @@ package controlx.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 public class Produto implements Serializable{
@@ -40,9 +43,18 @@ public class Produto implements Serializable{
 	@NotNull(message = "Digite um estoque mínimo.")
     private BigDecimal estoqueMin;
 	
+	@NotNull(message = "Escolha uma categoria")
 	@ManyToOne
 	@JoinColumn(name="categoria_id")
 	private Categoria categoria;
+	
+	@NotNull(message = "Escolha um fornecedor")
+	@ManyToOne
+	@JoinColumn(name="fornecedor_id")
+	private Fornecedor fornecedor;
+	
+	@Value("false")
+	private boolean deleted;
     
 	public Long getId() {
 		return id;
@@ -86,7 +98,17 @@ public class Produto implements Serializable{
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
-	
-	
+	public boolean isDeleted() {
+		return deleted;
+	}
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
 	
 }

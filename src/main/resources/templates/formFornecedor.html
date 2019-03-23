@@ -20,9 +20,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/principal.css?version=12" />
+	href="/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/form.css?version=12" />
+	href="/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Gerenciar Fornecedor</title>
@@ -48,7 +48,8 @@
 						<div class="row">
 							<div class="container p-5 bg-white">
 
-								<form>
+								<form method="post" action="salvarFornecedor"
+									th:object="${fornecedorObj}">
 									<div class="row">
 										<div class="col-12">
 											<h3 class="mb-5">Dados do fornecedor</h3>
@@ -57,27 +58,26 @@
 									<div class="form-row">
 										<div class="form-group col-2">
 											<label for="id">ID</label> <input readonly="readonly"
-												type="number" class="form-control" id="id" placeholder="ID"
-												th:value="${fornecedor.id}">
+												type="number" class="form-control" name="id" id="id"
+												placeholder="ID" th:field="*{id}">
 										</div>
 										<div class="form-group col-md-10">
 											<label for="nome">Nome:</label> <input type="text"
-												class="form-control" id="nome"
-												placeholder="Nome do fornecedor"
-												th:value="${fornecedor.nome}">
+												class="form-control" name="nome" id="nome"
+												placeholder="Nome do fornecedor" th:field="*{nome}" required>
 										</div>
 
 									</div>
 									<div class="form-row ">
 										<div class="form-group col-6">
-											<label for="cpf">CNPJ:</label> <input type="text"
-												class="form-control" id="cpf" placeholder="CPF"
-												th:value="${usuario.cpf}">
+											<label for="cnpj">CNPJ:</label> <input type="text"
+												class="form-control" name="cnpj" id="cnpj"
+												placeholder="CNPJ" th:field="*{cnpj}" required>
 										</div>
 										<div class="form-group col-6">
 											<label for="fone">Telefone:</label> <input type="text"
-												class="form-control" id="fone" placeholder="Telefone"
-												th:value="${usuario.fone}">
+												class="form-control" name="telefone" id="telefone"
+												placeholder="Telefone" th:field="*{telefone}" required>
 										</div>
 									</div>
 									<hr>
@@ -89,29 +89,28 @@
 									<div class="form-row text-center">
 										<div class="form-group col-2">
 											<label for="cep">Cep:</label> <input type="text"
-												class="form-control" id="cep" placeholder="Cep"
-												th:value="${usuario.cep}">
+												class="form-control" name="cep" id="cep" placeholder="Cep"
+												th:field="*{cep}" required>
 										</div>
 										<div class="form-group col-3">
 											<label for="rua">Rua:</label> <input type="text"
-												class="form-control" id="rua" placeholder="Rua"
-												th:value="${usuario.rua}">
+												class="form-control" name="rua" id="rua" placeholder="Rua"
+												th:field="*{rua}" required>
 										</div>
 										<div class="form-group col-2">
 											<label for="numero">Numero:</label> <input type="text"
-												class="form-control" id="numero" placeholder="Numero"
-												th:value="${usuario.numero}">
+												class="form-control" name="num" id="numero"
+												placeholder="Numero" th:field="*{num}" required>
 										</div>
 										<div class="form-group col-3">
 											<label for="cidade">Cidade:</label> <input type="text"
-												class="form-control" id="cidade" placeholder="Cidade"
-												th:value="${usuario.cidade}">
+												class="form-control" name="cidade" id="cidade"
+												placeholder="Cidade" th:field="*{cidade}" required>
 										</div>
 										<div class="form-group col-2">
-											<label for="estado">Estado:</label> <select id="estado"
-												class="form-control">
-												<option th:value="${usuario.estado}"
-													th:text="${usuario.estado}" selected>Escolha...</option>
+											<label for="estado">Estado:</label> <select name="estado"
+												id="estado" class="form-control" required>
+												<option th:value="0" disabled selected>Escolha...</option>
 												<option th:value="AC">Acre</option>
 												<option th:value="AL">Alagoas</option>
 												<option th:value="AP">Amapá</option>
@@ -143,12 +142,12 @@
 										</div>
 									</div>
 									<hr>
-									<br> <a href="fornecedores.html"><button type="button"
+									<br> <a href="/fornecedores"><button type="button"
 											class="btn btn-danger">Voltar</button></a>
 									<button type="submit" class="btn btn-danger">Salvar</button>
 
-									<button type="button" class="btn btn-secondary"
-										data-toggle="modal" data-target="#exampleModal">Remover</button>
+									<button th:if="${edit}" th:onclick="return remover();"
+										type="button" class="btn btn-secondary">Remover</button>
 
 								</form>
 
@@ -162,12 +161,30 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#menu").load("menu.html");
+		$("#menu").load("/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
+	</script>
+
+	<script type="text/javascript">
+		$("#cnpj").mask("00.000.000/0000-00");
+	</script>
+
+	<!-- Javascript com Thymeleaf -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+
+		function remover() {
+			if (confirm("Tem certeza que deseja remover?"))
+				/*[+ var url =  [[@{/removerProduto/{idproduto}(idproduto=${id})}]];
+				+]*/
+				location.href = url;
+			alert("Removido com sucesso!");
+		}
+		/*]]>*/
 	</script>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
