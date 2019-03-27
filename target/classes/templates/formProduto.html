@@ -99,19 +99,32 @@
 									<div class="form-row text-center">
 										<div class="form-group col-md-6">
 											<label for="forn">Fornecedor:</label> <select id="forn"
-												class="form-control" th:each="fornecedor : ${fornecedores}"
-												name="fornecedor">
-												<option th:value="${fornecedor.id}"
-													th:text="${fornecedor.nome}"></option>
+												class="form-control" name="fornecedor" required>
+												<option th:value="0" th:if="${edit} == null" disabled
+													selected>Selecione...</option>
+												<option th:value="*{fornecedor}" th:text="*{fornecedor.nome}"
+													th:if="${edit}" selected></option>
+												<option th:each="fornecedor : ${fornecedores}"
+													th:value="${fornecedor.id}" th:text="${fornecedor.nome}"></option>
 											</select>
 										</div>
 										<div class="form-group col-md-6">
 											<label for="cat">Categoria:</label> <select id="cat"
-												class="form-control" th:each="categoria : ${categorias}"
-												name="categoria" required>
-												<option th:value="${categoria.id}"
-													th:text="${categoria.nome}"></option>
+												class="form-control" name="categoria" required>
+												<option th:value="0" th:if="${edit} == null" disabled
+													selected>Selecione...</option>
+												<option th:value="*{categoria}" th:text="*{categoria.nome}"
+													th:if="${edit}" selected></option>
+												<option th:each="categoria : ${categorias}"
+													th:value="${categoria.id}" th:text="${categoria.nome}"></option>
 											</select>
+										</div>
+									</div>
+									<div class="form-row text-center">
+										<div class="form-group col-md-12">
+											<label for="imagemUrl">Imagem (URL):</label> <input
+												type="text" class="form-control" name="imagemUrl"
+												placeholder="Url da imagem" th:field="*{imagemUrl}" required>
 										</div>
 									</div>
 									<br> <a href="/estoque"><button type="button"

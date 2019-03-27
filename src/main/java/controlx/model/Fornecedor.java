@@ -37,7 +37,6 @@ public class Fornecedor {
     private String cep;
 	
 	@NotNull(message = "Digite um número.")
-	@NotEmpty(message = "Digite um número.")
     private Long num;
 	
 	@NotNull(message = "Digite uma rua.")

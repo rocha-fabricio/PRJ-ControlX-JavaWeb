@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controlx.model.Produto;
 import controlx.repository.CategoriaRepository;
+import controlx.repository.FornecedorRepository;
 import controlx.repository.ProdutoRepository;
 
 @Controller
@@ -28,12 +29,15 @@ public class ProdutoController {
 	private ProdutoRepository produtoRepository;
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 
 	@GetMapping("/cadastrarProduto")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
 		modelAndView.addObject("produtoObj", new Produto());
 		modelAndView.addObject("categorias", categoriaRepository.findAll());
+		modelAndView.addObject("fornecedores", fornecedorRepository.findAll());
 		return modelAndView;
 	}
 
@@ -43,6 +47,7 @@ public class ProdutoController {
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
 		modelAndView.addObject("produtoObj", produto.get());
 		modelAndView.addObject("categorias", categoriaRepository.findAll());
+		modelAndView.addObject("fornecedores", fornecedorRepository.findAll());
 		modelAndView.addObject("edit", "");
 		modelAndView.addObject("id", idproduto);
 		return modelAndView;
