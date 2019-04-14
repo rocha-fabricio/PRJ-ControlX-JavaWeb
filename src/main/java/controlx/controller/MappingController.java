@@ -9,10 +9,20 @@ public class MappingController {
 	public String menu() {
 		return "menu";
 	}
-
-	@GetMapping("/principal")
-	private String principal() {
-		return "principal";
+	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
 	}
 	
+	@GetMapping("/")
+	public String principal() {
+		return "index";
+	}
+	
+	@GetMapping("/vender")
+	private String vender() {
+		return "vender";
+
+	}
 }

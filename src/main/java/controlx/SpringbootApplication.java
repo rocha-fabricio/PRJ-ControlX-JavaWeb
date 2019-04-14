@@ -9,6 +9,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EntityScan(basePackages="controlx.model")
@@ -16,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableJpaRepositories(basePackages= {"controlx.repository"})
 @EnableTransactionManagement
 @RestController
-public class SpringbootApplication extends SpringBootServletInitializer{
+
+public class SpringbootApplication extends SpringBootServletInitializer implements WebMvcConfigurer{
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -25,6 +28,12 @@ public class SpringbootApplication extends SpringBootServletInitializer{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootApplication.class, args);
+	}
+	
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/login").setViewName("/login");
+
 	}
 
 }

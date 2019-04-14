@@ -20,9 +20,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/principal.css?version=12" />
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/form.css?version=12" />
+	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Gerenciar Usuarios</title>
@@ -51,16 +51,27 @@
 									<div class="row">
 										<div class="col-12 text-center">
 											<div class="container-fluid" id="form">
-												<a href="formUsuario.html"><button type="button"
-														class="btn btn-danger btn-lg">Adicionar Usuario</button></a>
+												<a href="/controlx-1.0/usuarios/cadastrar"><button
+														type="button" class="btn btn-danger btn-lg">Adicionar
+														Usuario</button></a>
 											</div>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-12 text-center">
 											<div class="container-fluid" id="form">
-												<form action="" method="post">
-													<label>Pesquisar usuario:</label> <input name="pesquisar">
+												<form action="pesquisar" method="post">
+													<label>Pesquisar Usuario:</label> <input name="pesquisa">
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio"
+															name="tipoPesquisa" value="nome" checked> <label
+															class="form-check-label" for="inlineRadio1">Nome</label>
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio"
+															name="tipoPesquisa" value="id"> <label
+															class="form-check-label" for="inlineRadio2">ID</label>
+													</div>
 													<input type="submit" value="Buscar">
 												</form>
 											</div>
@@ -71,22 +82,17 @@
 											<tr>
 												<th style="text-align: center;">ID</th>
 												<th style="text-align: center;">Nome</th>
-												<th style="text-align: center;">Sobrenome</th>
-												<th style="text-align: center;">Fone</th>
+												<th style="text-align: center;">Telefone</th>
 												<th style="text-align: center;">Editar</th>
 											</tr>
 											<tr th:each="usuario: ${usuarios}">
 												<td th:text="${usuario.id}"></td>
 												<td th:text="${usuario.nome}"></td>
-												<td th:text="${usuario.sobrenome}"></td>
-												<td th:text="${usuario.fone}"></td>
-												<td><a href="formUsuario.html?acao=editar&id="><img
-														src="resources/img/editar.png" width="20px" height="20px"
-														title="Editar"></img></a></td>
-												<!-- <td><a
-													href="formProduto.html?acao=editar&id=${produto.id}"><img
-														src="resources/img/editar.png" width="20px" height="20px"
-														title="Editar"></img></a></td>  -->
+												<td th:text="${usuario.telefone}"></td>
+												<td><a
+													th:href="@{/usuarios/editar/{idusuario}(idusuario=${usuario.id})}"><img
+														src="/controlx-1.0/resources/img/editar.png" width="20px"
+														height="20px" title="Editar"></img></a></td>
 											</tr>
 										</table>
 									</div>
@@ -100,7 +106,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$("#menu").load("menu.html");
+		$("#menu").load("/controlx-1.0/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();

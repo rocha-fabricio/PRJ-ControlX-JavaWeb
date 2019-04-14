@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -20,9 +20,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/principal.css?version=12" />
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/form.css?version=12" />
+	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Gerenciar Estoque</title>
@@ -51,7 +51,7 @@
 						<div class="row">
 							<div class="container p-5 bg-white">
 
-								<form method="post" action="salvarProduto"
+								<form method="post" action="salvar"
 									th:object="${produtoObj}">
 									<div class="form-row">
 										<div class="form-group col-2">
@@ -78,15 +78,16 @@
 										</div>
 										<div class="form-group col-md-3">
 											<label for="un">Unidade de medida:</label> <select
-												name="tipoUn" class="form-control" th:field="*{tipoUn}">
-												<option th:value="0" selected disabled>Escolha...</option>
-												<option th:value="un">Unidade (un)</option>
-												<option th:value="kg">Quilograma (kg)</option>
-												<option th:value="l">Litro (l)</option>
-												<option th:value="ml">Mililitro (ml)</option>
-												<option th:value="g">Grama (g)</option>
-												<option th:value="m">Metro (m)</option>
-												<option th:value="cm">Centimetro (cm)</option>
+												name="tipoUn" class="form-control" required>
+												<option th:value="0" disabled
+													selected>Escolha...</option>
+												<option th:value="un" th:selected="*{tipoUn} == 'un'">Unidade (un)</option>
+												<option th:value="kg" th:selected="*{tipoUn} == 'kg'">Quilograma (kg)</option>
+												<option th:value="l" th:selected="*{tipoUn} == 'l'">Litro (l)</option>
+												<option th:value="ml" th:selected="*{tipoUn} == 'ml'">Mililitro (ml)</option>
+												<option th:value="g" th:selected="*{tipoUn} == 'g'">Grama (g)</option>
+												<option th:value="m" th:selected="*{tipoUn} == 'm'">Metro (m)</option>
+												<option th:value="cm" th:selected="*{tipoUn} == 'cm'">Centimetro (cm)</option>
 											</select>
 										</div>
 										<div class="form-group col-3">
@@ -100,23 +101,19 @@
 										<div class="form-group col-md-6">
 											<label for="forn">Fornecedor:</label> <select id="forn"
 												class="form-control" name="fornecedor" required>
-												<option th:value="0" th:if="${edit} == null" disabled
-													selected>Selecione...</option>
-												<option th:value="*{fornecedor}" th:text="*{fornecedor.nome}"
-													th:if="${edit}" selected></option>
-												<option th:each="fornecedor : ${fornecedores}"
-													th:value="${fornecedor.id}" th:text="${fornecedor.nome}"></option>
+												<option th:value="0" disabled
+													selected>Escolha...</option>
+												<option th:each="forn : ${fornecedores}"
+													th:value="${forn.id}" th:text="${forn.nome}" th:selected="${forn.id} == *{fornecedor.id}"></option>
 											</select>
 										</div>
 										<div class="form-group col-md-6">
 											<label for="cat">Categoria:</label> <select id="cat"
 												class="form-control" name="categoria" required>
-												<option th:value="0" th:if="${edit} == null" disabled
-													selected>Selecione...</option>
-												<option th:value="*{categoria}" th:text="*{categoria.nome}"
-													th:if="${edit}" selected></option>
-												<option th:each="categoria : ${categorias}"
-													th:value="${categoria.id}" th:text="${categoria.nome}"></option>
+												<option th:value="0" disabled
+													selected>Escolha...</option>
+												<option th:each="cat : ${categorias}"
+													th:value="${cat.id}" th:text="${cat.nome}" th:selected="${cat.id} == *{categoria.id}"></option>
 											</select>
 										</div>
 									</div>
@@ -127,12 +124,12 @@
 												placeholder="Url da imagem" th:field="*{imagemUrl}" required>
 										</div>
 									</div>
-									<br> <a href="/estoque"><button type="button"
-											class="btn btn-danger">Voltar</button></a>
+									<br> <a href="/controlx-1.0/estoque"><button
+											type="button" class="btn btn-danger">Voltar</button></a>
 									<button type="submit" class="btn btn-danger">Salvar</button>
 
 									<button th:if="${edit}" th:onclick="return remover();"
-										type="button" class="btn btn-secondary">Remover</button>
+										type="button" class="btn btn-secondary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE', 'ROLE_ALMOXARIFE')">Remover</button>
 
 								</form>
 
@@ -146,7 +143,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#menu").load("/menu");
+		$("#menu").load("/controlx-1.0/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
@@ -159,11 +156,12 @@
 		/*<![CDATA[*/
 
 		function remover() {
-			if (confirm("Tem certeza que deseja remover?"))
-				/*[+ var url =  [[@{/removerProduto/{idproduto}(idproduto=${id})}]];
+			if (confirm("Tem certeza que deseja remover?")) {
+				/*[+ var url =  [[@{/estoque/remover/{idproduto}(idproduto=${id})}]];
 				+]*/
 				location.href = url;
-			alert("Removido com sucesso!");
+				alert("Removido com sucesso!");
+			}
 		}
 		/*]]>*/
 	</script>

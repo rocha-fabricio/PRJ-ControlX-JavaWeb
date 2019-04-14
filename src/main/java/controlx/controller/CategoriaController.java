@@ -13,26 +13,29 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controlx.model.Categoria;
+import controlx.model.Produto;
 import controlx.repository.CategoriaRepository;
 
 @Controller
+@RequestMapping("/categorias")
 public class CategoriaController {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
-	@GetMapping("/cadastrarCategoria")
+	@GetMapping("/cadastrar")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView("formCategoria");
 		modelAndView.addObject("categoriaObj", new Categoria());
 		return modelAndView;
 	}
 
-	@GetMapping("/editarCategoria/{idcategoria}")
+	@GetMapping("/editar/{idcategoria}")
 	public ModelAndView editar(@PathVariable("idcategoria") Long idcategoria) {
 		Optional<Categoria> categoria = categoriaRepository.findById(idcategoria);
 		ModelAndView modelAndView = new ModelAndView("/formCategoria");
@@ -42,13 +45,15 @@ public class CategoriaController {
 		return modelAndView;
 	}
 
-	@GetMapping("/removerCategoria/{idcategoria}")
+	@GetMapping("**/remover/{idcategoria}")
 	public ModelAndView excluir(@PathVariable("idcategoria") Long idcategoria) {
-		categoriaRepository.deleteById(idcategoria);
+		Optional<Categoria> c = categoriaRepository.findById(idcategoria);
+		c.get().setDeleted(true);
+		categoriaRepository.save(c.get());
 		return listarTodos();
 	}
 
-	@PostMapping("**/salvarCategoria")
+	@PostMapping("**/salvar")
 	public ModelAndView salvar(@Valid Categoria categoria, BindingResult bindingResult) {
 		//Verifica erros no formulário
 		if (bindingResult.hasErrors()) {
@@ -70,7 +75,7 @@ public class CategoriaController {
 		return listarTodos();
 	}
 
-	@GetMapping("**/categorias")
+	@GetMapping("**/")
 	public ModelAndView listarTodos() {
 		ModelAndView andView = new ModelAndView("categorias");
 		Iterable<Categoria> categoriasIt = categoriaRepository.findAll();
@@ -78,7 +83,7 @@ public class CategoriaController {
 		return andView;
 	}
 
-	@PostMapping("**/pesquisarCategoria")
+	@PostMapping("**/pesquisar")
 	public ModelAndView listarByName(@RequestParam("pesquisa") String pesquisa,
 			@RequestParam("tipoPesquisa") String tipoPesquisa) {
 		ModelAndView modelAndView = new ModelAndView("/categorias");

@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Produto implements Serializable {
 
@@ -47,16 +49,19 @@ public class Produto implements Serializable {
 	@NotNull(message = "Escolha uma categoria")
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
-	private Categoria categoria;
+	private Categoria categoria = new Categoria();
 
 	@NotNull(message = "Digite a url da imagem.")
 	@NotEmpty(message = "Digite a url da imagem.")
 	private String imagemUrl;
 
+	@Value("0")
+	private String codigoBarras;
+	
 	@NotNull(message = "Escolha um fornecedor")
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id")
-	private Fornecedor fornecedor;
+	private Fornecedor fornecedor = new Fornecedor();
 
 	@Value("false")
 	private boolean deleted;
@@ -141,4 +146,13 @@ public class Produto implements Serializable {
 		this.imagemUrl = imagemUrl;
 	}
 
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+
+	
 }

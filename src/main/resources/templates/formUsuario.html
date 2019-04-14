@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -32,11 +32,14 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/principal.css?version=12" />
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="resources/css/form.css?version=12" />
+	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Gerenciar Usuario</title>
@@ -59,10 +62,13 @@
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<p class="well lead">Gerenciar Usuario</p>
+						<div class="alert alert-danger" role="alert" th:each="m : ${msg}">
+							<span th:text="${m}"></span>
+						</div>
 						<div class="row">
 							<div class="container p-5 bg-white">
-
-								<form>
+								<form method="post" action="salvar"
+									th:object="${usuarioObj}">
 									<div class="row">
 										<div class="col-12">
 											<h3 class="mb-5">Dados do usuário</h3>
@@ -71,44 +77,40 @@
 									<div class="form-row">
 										<div class="form-group col-2">
 											<label for="id">ID</label> <input readonly="readonly"
-												type="number" class="form-control" id="id" placeholder="ID"
-												th:value="${usuario.id}">
+												type="number" class="form-control" name="id" id="id"
+												placeholder="ID" th:field="*{id}">
 										</div>
-										<div class="form-group col-md-5">
+										<div class="form-group col-md-10">
 											<label for="nome">Nome:</label> <input type="text"
-												class="form-control" id="nome" placeholder="Nome do usuario"
-												th:value="${usuario.nome}">
-										</div>
-										<div class="form-group col-5">
-											<label for="sobrenome">Sobrenome:</label> <input type="text"
-												class="form-control" id="sobrenome" placeholder="Sobrenome"
-												th:value="${usuario.sobrenome}">
+												class="form-control" name="nome" id="nome"
+												placeholder="Nome do usuario" th:field="*{nome}" required>
 										</div>
 									</div>
 									<div class="form-row">
-										<div class="form-group col-3" id="dateNasc">
+										<div class="form-group col-3" id=".dateNasc">
 											<label for="dataNasc">Data de nascimento:</label> <input
-												type="text" class="form-control" id="date" name="date"
-												placeholder="Data de nascimento"
-												th:value="${usuario.dataNasc}" autocomplete="off">
+												type="date" class="form-control" id="dataNasc"
+												name="dataNasc" placeholder="Data de nascimento"
+												th:field="*{dataNasc}" autocomplete="off" required>
 										</div>
 										<div class="form-group col-3">
 											<label for="cpf">CPF:</label> <input type="text"
-												class="form-control" id="cpf" placeholder="CPF"
-												th:value="${usuario.cpf}">
+												class="form-control" name="cpf" id="cpf" placeholder="CPF"
+												th:field="*{cpf}" required>
 										</div>
 										<div class="form-group col-md-3">
-											<label for="sexo">Sexo:</label> <select id="un"
-												class="form-control">
-												<option th:text="${usuario.sexo}" selected>Escolha...</option>
-												<option th:value="0">Masculino</option>
-												<option th:value="1">Feminino</option>
+											<label for="sexo">Sexo:</label> <select name="sexo" id="sexo"
+												class="form-control" required>
+												<option th:value="0" disabled
+													selected>Escolha...</option>
+												<option th:value="false" th:selected="*{sexo} == false">Masculino</option>
+												<option th:value="true" th:selected="*{sexo} == true">Feminino</option>
 											</select>
 										</div>
 										<div class="form-group col-3">
 											<label for="fone">Telefone:</label> <input type="text"
-												class="form-control" id="fone" placeholder="Telefone"
-												th:value="${usuario.fone}">
+												class="form-control" name="telefone" id="phone-number"
+												placeholder="Telefone" th:field="*{telefone}" required>
 										</div>
 									</div>
 									<hr>
@@ -154,33 +156,33 @@
 											<label for="estado">Estado:</label> <select name="estado"
 												id="estado" class="form-control" required>
 												<option th:value="0" disabled selected>Escolha...</option>
-												<option th:value="AC">Acre</option>
-												<option th:value="AL">Alagoas</option>
-												<option th:value="AP">Amapá</option>
-												<option th:value="AM">Amazonas</option>
-												<option th:value="BA">Bahia</option>
-												<option th:value="CE">Ceará</option>
-												<option th:value="DF">Distrito Federal</option>
-												<option th:value="ES">Espírito Santo</option>
-												<option th:value="GO">Goiás</option>
-												<option th:value="MA">Maranhão</option>
-												<option th:value="MT">Mato Grosso</option>
-												<option th:value="MS">Mato Grosso do Sul</option>
-												<option th:value="MG">Minas Gerais</option>
-												<option th:value="PA">Pará</option>
-												<option th:value="PB">Paraíba</option>
-												<option th:value="PR">Paraná</option>
-												<option th:value="PE">Pernambuco</option>
-												<option th:value="PI">Piauí</option>
-												<option th:value="RJ">Rio de Janeiro</option>
-												<option th:value="RN">Rio Grande do Norte</option>
-												<option th:value="RS">Rio Grande do Sul</option>
-												<option th:value="RO">Rondônia</option>
-												<option th:value="RR">Roraima</option>
-												<option th:value="SC">Santa Catarina</option>
-												<option th:value="SP">São Paulo</option>
-												<option th:value="SE">Sergipe</option>
-												<option th:value="TO">Tocantins</option>
+												<option th:value="AC" th:selected="*{estado} == 'AC'">Acre</option>
+												<option th:value="AL" th:selected="*{estado} == 'AL'">Alagoas</option>
+												<option th:value="AP" th:selected="*{estado} == 'AP'">Amapá</option>
+												<option th:value="AM" th:selected="*{estado} == 'AM'">Amazonas</option>
+												<option th:value="BA" th:selected="*{estado} == 'BA'">Bahia</option>
+												<option th:value="CE" th:selected="*{estado} == 'CE'">Ceará</option>
+												<option th:value="DF" th:selected="*{estado} == 'DF'">Distrito Federal</option>
+												<option th:value="ES" th:selected="*{estado} == 'ES'">Espírito Santo</option>
+												<option th:value="GO" th:selected="*{estado} == 'GO'">Goiás</option>
+												<option th:value="MA" th:selected="*{estado} == 'MA'">Maranhão</option>
+												<option th:value="MT" th:selected="*{estado} == 'MT'">Mato Grosso</option>
+												<option th:value="MS" th:selected="*{estado} == 'MS'">Mato Grosso do Sul</option>
+												<option th:value="MG" th:selected="*{estado} == 'MG'">Minas Gerais</option>
+												<option th:value="PA" th:selected="*{estado} == 'PA'">Pará</option>
+												<option th:value="PB" th:selected="*{estado} == 'PB'">Paraíba</option>
+												<option th:value="PR" th:selected="*{estado} == 'PR'">Paraná</option>
+												<option th:value="PE" th:selected="*{estado} == 'PE'">Pernambuco</option>
+												<option th:value="PI" th:selected="*{estado} == 'PI'">Piauí</option>
+												<option th:value="RJ" th:selected="*{estado} == 'RJ'">Rio de Janeiro</option>
+												<option th:value="RN" th:selected="*{estado} == 'RN'">Rio Grande do Norte</option>
+												<option th:value="RS" th:selected="*{estado} == 'RS'">Rio Grande do Sul</option>
+												<option th:value="RO" th:selected="*{estado} == 'RO'">Rondônia</option>
+												<option th:value="RR" th:selected="*{estado} == 'RR'">Roraima</option>
+												<option th:value="SC" th:selected="*{estado} == 'SC'">Santa Catarina</option>
+												<option th:value="SP" th:selected="*{estado} == 'SP'">São Paulo</option>
+												<option th:value="SE" th:selected="*{estado} == 'SE'">Sergipe</option>
+												<option th:value="TO" th:selected="*{estado} == 'TO'">Tocantins</option>
 											</select>
 										</div>
 									</div>
@@ -193,32 +195,31 @@
 									<div class="form-row text-center">
 										<div class="form-group col-4">
 											<label for="login">Usuario:</label> <input type="text"
-												class="form-control" id="login" placeholder="Usuário"
-												th:value="${usuario.login}">
+												class="form-control" name="login" id="login"
+												placeholder="Usuário" th:field="*{login}" required>
 										</div>
 										<div class="form-group col-4">
 											<label for="senha">Senha:</label> <input type="password"
-												class="form-control" id="senha" placeholder="Senha"
-												th:value="${usuario.senha}">
+												class="form-control" name="senha" id="senha"
+												placeholder="Senha" th:field="*{senha}" required>
 										</div>
 										<div class="form-group col-4">
-											<label for="cargo">Cargo:</label> <select id="cargo"
-												class="form-control">
-												<option th:value="${usuario.estado}"
-													th:text="${usuario.cargo}" selected>Escolha...</option>
-												<option>Vendedor</option>
-												<option>Almoxarife</option>
-												<option>Gerente</option>
-												<option>Administrador</option>
+											<label for="cargo">Cargo:</label> <select name="cargo"
+												class="form-control" required>
+												<option th:value="0" disabled selected>Escolha...</option>
+												<option th:value="0" th:selected="*{cargo} == 0">Vendedor</option>
+												<option th:value="1" th:selected="*{cargo} == 1">Almoxarife</option>
+												<option sec:authorize="hasAnyRole('ROLE_ADMIN')" th:value="2" th:selected="*{cargo} == 2">Gerente</option>
+												<option sec:authorize="hasAnyRole('ROLE_ADMIN')" th:value="3" th:selected="*{cargo} == 3">Administrador</option>
 											</select>
 										</div>
 									</div>
-									<br> <a href="usuarios.html"><button type="button"
-											class="btn btn-danger">Voltar</button></a>
-									<button type="submit" class="btn btn-danger">Salvar</button>
+									<br> <a href="/controlx-1.0/usuarios"><button
+											type="button" class="btn btn-danger">Voltar</button></a>
+									<button sec:authorize="hasAnyRole('ROLE_ADMIN')" type="submit" class="btn btn-danger">Salvar</button>
 
-									<button type="button" class="btn btn-secondary"
-										data-toggle="modal" data-target="#exampleModal">Remover</button>
+									<button sec:authorize="hasAnyRole('ROLE_ADMIN')" th:if="${edit}" th:onclick="return remover();"
+										type="button" class="btn btn-secondary">Remover</button>
 
 								</form>
 
@@ -232,7 +233,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#menu").load("menu.html");
+		$("#menu").load("/controlx-1.0/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
@@ -243,15 +244,39 @@
 
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript">
+		$(document).ready(function() {
+			//$('#dataNasc').mask('00-00-0000');
+			$('#phone-number').mask('(00)00000-0000');
+			$('#cpf').mask('000.000.000-00');
+			$('#cep').mask('00000-000');
+		});
+	</script>
+
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript">
 		$('#dateNasc input').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd-mm-yyyy",
 			clearBtn : true,
 			language : "pt-BR",
 		});
 	</script>
 
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!-- Javascript com Thymeleaf -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
 
+		function remover() {
+			if (confirm("Tem certeza que deseja remover?")) {
+				/*[+ var url =  [[@{/usuarios/remover/{idusuario}(idusuario=${id})}]];
+				+]*/
+				location.href = url;
+				alert("Removido com sucesso!");
+			}
+		}
+		/*]]>*/
+	</script>
+
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -263,8 +288,9 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
-
 	<script
 		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@ body {
   border: 1px solid #ddd;
   transition: border-width 0.2s ease;
   border-radius: 2px;
-  color: #ccc;
+  color: #000000;
 }
 .login input + i.fa {
   color: #fff;

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -8,39 +8,74 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'
-	rel='stylesheet' type='text/css'>
-<link rel="stylesheet"
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/login.css?version=12" />
-<script type="text/javascript" src="resources/js/login.js"></script>
-<script src="jquery-3.3.1.min.js"></script>
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
 
-<title>ControlX - Login</title>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
+<!------ Include the above in your HEAD tag ---------->
+
+<title>ControlX - Início</title>
 </head>
-<body>
-	<div class="wrapper">
-		<form class="login" method="post" action="">
-			<p class="title text-center">ControlX</p>
-			<input type="text" placeholder="Usuario" autofocus /> <i
-				class="fa fa-user"></i> <input type="password" placeholder="Senha" />
-			<i class="fa fa-key"></i>
-			<a href="principal"><button type="button">
-				<i class="spinner"></i> <span class="state">Logar</span>
-			</button></a>
-		</form>
-		<footer>
-			<a href="#">Contato</a>
-		</footer>
+<body id="container">
+	<div id="wrapper" class="active">
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul id="sidebar_menu" class="sidebar-nav">
+				<li class="sidebar-brand"><a id="menu-toggle" href="#">ControlX<span
+						id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+			</ul>
+			<div id="menu"></div>
+		</div>
+
+		<!-- Page content -->
+		<div id="page-content-wrapper">
+			<!-- Keep all page content within the page-content inset div! -->
+			<div class="page-content inset">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="well lead text-center">ControlX</p>
+						<div class="container well lead ">
+							<div class="row">
+								<!-- div da esquerda -->
+								<!-- Text input CNPJ e Razao Social-->
+								<div class="col-12 text-center">
+									<!-- div da direita -->
+									<p>Bem vindo ao ControlX!</p>
+									<br />
+									<p>Desenvolvido por Fabricio Rocha e Gustavo Henrique Nunes</p>
+								</div>
+								<!-- fim div da direita -->
+							</div>
+							<!-- fim div da esquerda -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 
+	<script type="text/javascript">
+		$("#menu").load("/controlx-1.0/menu");
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("active");
+		});
+	</script>
 	<!-- Optional JavaScript -->
+
+
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
@@ -52,5 +87,8 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
+
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 </body>
 </html>

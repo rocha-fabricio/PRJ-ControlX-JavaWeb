@@ -1,5 +1,6 @@
 package controlx.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Categoria {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,8 +26,9 @@ public class Categoria {
 	@NotNull(message = "Digite um nome.")
 	@NotEmpty(message = "Digite um nome.")
     private String nome;
+	
 	@OneToMany(mappedBy = "categoria", targetEntity = Produto.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private List<Produto> produtos;
+	private List<Produto> produtos = new ArrayList<Produto>();
 	
 	@Value("false")
 	private boolean deleted;
@@ -47,6 +51,8 @@ public class Categoria {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+	
+	@JsonIgnore
 	public List<Produto> getProdutos() {
 		return produtos;
 	}

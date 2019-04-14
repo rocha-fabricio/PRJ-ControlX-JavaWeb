@@ -1,5 +1,6 @@
 package controlx.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +25,7 @@ import controlx.repository.FornecedorRepository;
 import controlx.repository.ProdutoRepository;
 
 @Controller
+@RequestMapping("/estoque")
 public class ProdutoController {
 
 	@Autowired
@@ -32,7 +35,7 @@ public class ProdutoController {
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
 
-	@GetMapping("/cadastrarProduto")
+	@GetMapping("/cadastrar")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
 		modelAndView.addObject("produtoObj", new Produto());
@@ -41,7 +44,7 @@ public class ProdutoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/editarProduto/{idproduto}")
+	@GetMapping("/editar/{idproduto}")
 	public ModelAndView editar(@PathVariable("idproduto") Long idproduto) {
 		Optional<Produto> produto = produtoRepository.findById(idproduto);
 		ModelAndView modelAndView = new ModelAndView("/formProduto");
@@ -53,18 +56,22 @@ public class ProdutoController {
 		return modelAndView;
 	}
 
-	@GetMapping("/removerProduto/{idproduto}")
+	@GetMapping("**/remover/{idproduto}")
 	public ModelAndView excluir(@PathVariable("idproduto") Long idproduto) {
-		produtoRepository.deleteById(idproduto);
+		Optional<Produto> p = produtoRepository.findById(idproduto);
+		p.get().setDeleted(true);
+		produtoRepository.save(p.get());
 		return listarTodos();
 	}
 
-	@PostMapping("**/salvarProduto")
+	@PostMapping("**/salvar")
 	public ModelAndView salvar(@Valid Produto produto, BindingResult bindingResult) {
 		//Verifica erros no formulário
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView("/formProduto");
 			modelAndView.addObject("produtoObj", produto);
+			modelAndView.addObject("categorias", categoriaRepository.findAll());
+			modelAndView.addObject("fornecedores", fornecedorRepository.findAll());
 			
 			List<String> msg = new ArrayList<>();
 			for (ObjectError objectError : bindingResult.getAllErrors()) {
@@ -72,7 +79,6 @@ public class ProdutoController {
 			}
 			
 			modelAndView.addObject("msg", msg);
-			
 			return modelAndView;
 		}
 		
@@ -81,7 +87,7 @@ public class ProdutoController {
 		return listarTodos();
 	}
 
-	@GetMapping("**/estoque")
+	@GetMapping("**/")
 	public ModelAndView listarTodos() {
 		ModelAndView andView = new ModelAndView("estoque");
 		Iterable<Produto> produtosIt = produtoRepository.findAll();
@@ -89,7 +95,7 @@ public class ProdutoController {
 		return andView;
 	}
 
-	@PostMapping("**/pesquisarProduto")
+	@PostMapping("**/pesquisar")
 	public ModelAndView listarByName(@RequestParam("pesquisa") String pesquisa,
 			@RequestParam("tipoPesquisa") String tipoPesquisa) {
 		ModelAndView modelAndView = new ModelAndView("/estoque");

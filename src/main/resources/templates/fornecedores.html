@@ -20,9 +20,9 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/principal.css?version=12" />
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/form.css?version=12" />
+	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Fornecedores</title>
@@ -51,7 +51,7 @@
 									<div class="row">
 										<div class="col-12 text-center">
 											<div class="container-fluid" id="form">
-												<a href="/cadastrarFornecedor"><button type="button"
+												<a href="/controlx-1.0/fornecedores/cadastrar"><button type="button"
 														class="btn btn-danger btn-lg">Adicionar
 														Fornecedor</button></a>
 											</div>
@@ -60,7 +60,7 @@
 									<div class="row">
 										<div class="col-12 text-center">
 											<div class="container-fluid" id="form">
-												<form action="pesquisarProduto" method="post">
+												<form action="pesquisar" method="post">
 													<label>Pesquisar fornecedor:</label> <input name="pesquisa">
 													<div class="form-check form-check-inline">
 														<input class="form-check-input" type="radio" name="tipoPesquisa"
@@ -92,8 +92,8 @@
 												<td th:text="${fornecedor.telefone}"></td>
 												<td th:text="${fornecedor.cidade}"></td>
 												<td><a
-													th:href="@{/editarFornecedor/{idfornecedor}(idfornecedor=${fornecedor.id})}"><img
-														src="/resources/img/editar.png" width="20px" height="20px"
+													th:href="@{/fornecedores/editar/{idfornecedor}(idfornecedor=${fornecedor.id})}"><img
+														src="/controlx-1.0/resources/img/editar.png" width="20px" height="20px"
 														title="Editar"></img></a></td>
 											</tr>
 										</table>
@@ -108,7 +108,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$("#menu").load("/menu");
+		$("#menu").load("/controlx-1.0/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -19,10 +19,13 @@
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/principal.css?version=12" />
+	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
-	href="/resources/css/form.css?version=12" />
+	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
 <title>ControlX - Gerenciar Fornecedor</title>
@@ -51,7 +54,7 @@
 						<div class="row">
 							<div class="container p-5 bg-white">
 
-								<form method="post" action="salvarFornecedor"
+								<form method="post" action="salvar"
 									th:object="${fornecedorObj}">
 									<div class="row">
 										<div class="col-12">
@@ -79,7 +82,7 @@
 										</div>
 										<div class="form-group col-6">
 											<label for="fone">Telefone:</label> <input type="tel"
-												class="form-control" name="telefone" id="telefone"
+												class="form-control" name="telefone" id="phone-number"
 												placeholder="Telefone" th:field="*{telefone}" required>
 										</div>
 									</div>
@@ -126,42 +129,52 @@
 											<label for="estado">Estado:</label> <select name="estado"
 												id="estado" class="form-control" required>
 												<option th:value="0" disabled selected>Escolha...</option>
-												<option th:value="AC">Acre</option>
-												<option th:value="AL">Alagoas</option>
-												<option th:value="AP">Amapá</option>
-												<option th:value="AM">Amazonas</option>
-												<option th:value="BA">Bahia</option>
-												<option th:value="CE">Ceará</option>
-												<option th:value="DF">Distrito Federal</option>
-												<option th:value="ES">Espírito Santo</option>
-												<option th:value="GO">Goiás</option>
-												<option th:value="MA">Maranhão</option>
-												<option th:value="MT">Mato Grosso</option>
-												<option th:value="MS">Mato Grosso do Sul</option>
-												<option th:value="MG">Minas Gerais</option>
-												<option th:value="PA">Pará</option>
-												<option th:value="PB">Paraíba</option>
-												<option th:value="PR">Paraná</option>
-												<option th:value="PE">Pernambuco</option>
-												<option th:value="PI">Piauí</option>
-												<option th:value="RJ">Rio de Janeiro</option>
-												<option th:value="RN">Rio Grande do Norte</option>
-												<option th:value="RS">Rio Grande do Sul</option>
-												<option th:value="RO">Rondônia</option>
-												<option th:value="RR">Roraima</option>
-												<option th:value="SC">Santa Catarina</option>
-												<option th:value="SP">São Paulo</option>
-												<option th:value="SE">Sergipe</option>
-												<option th:value="TO">Tocantins</option>
+												<option th:value="AC" th:selected="*{estado} == 'AC'">Acre</option>
+												<option th:value="AL" th:selected="*{estado} == 'AL'">Alagoas</option>
+												<option th:value="AP" th:selected="*{estado} == 'AP'">Amapá</option>
+												<option th:value="AM" th:selected="*{estado} == 'AM'">Amazonas</option>
+												<option th:value="BA" th:selected="*{estado} == 'BA'">Bahia</option>
+												<option th:value="CE" th:selected="*{estado} == 'CE'">Ceará</option>
+												<option th:value="DF" th:selected="*{estado} == 'DF'">Distrito
+													Federal</option>
+												<option th:value="ES" th:selected="*{estado} == 'ES'">Espírito
+													Santo</option>
+												<option th:value="GO" th:selected="*{estado} == 'GO'">Goiás</option>
+												<option th:value="MA" th:selected="*{estado} == 'MA'">Maranhão</option>
+												<option th:value="MT" th:selected="*{estado} == 'MT'">Mato
+													Grosso</option>
+												<option th:value="MS" th:selected="*{estado} == 'MS'">Mato
+													Grosso do Sul</option>
+												<option th:value="MG" th:selected="*{estado} == 'MG'">Minas
+													Gerais</option>
+												<option th:value="PA" th:selected="*{estado} == 'PA'">Pará</option>
+												<option th:value="PB" th:selected="*{estado} == 'PB'">Paraíba</option>
+												<option th:value="PR" th:selected="*{estado} == 'PR'">Paraná</option>
+												<option th:value="PE" th:selected="*{estado} == 'PE'">Pernambuco</option>
+												<option th:value="PI" th:selected="*{estado} == 'PI'">Piauí</option>
+												<option th:value="RJ" th:selected="*{estado} == 'RJ'">Rio
+													de Janeiro</option>
+												<option th:value="RN" th:selected="*{estado} == 'RN'">Rio
+													Grande do Norte</option>
+												<option th:value="RS" th:selected="*{estado} == 'RS'">Rio
+													Grande do Sul</option>
+												<option th:value="RO" th:selected="*{estado} == 'RO'">Rondônia</option>
+												<option th:value="RR" th:selected="*{estado} == 'RR'">Roraima</option>
+												<option th:value="SC" th:selected="*{estado} == 'SC'">Santa
+													Catarina</option>
+												<option th:value="SP" th:selected="*{estado} == 'SP'">São
+													Paulo</option>
+												<option th:value="SE" th:selected="*{estado} == 'SE'">Sergipe</option>
+												<option th:value="TO" th:selected="*{estado} == 'TO'">Tocantins</option>
 											</select>
 										</div>
 									</div>
 									<hr>
-									<br> <a href="/fornecedores"><button type="button"
-											class="btn btn-danger">Voltar</button></a>
+									<br> <a href="/controlx-1.0/fornecedores"><button
+											type="button" class="btn btn-danger">Voltar</button></a>
 									<button type="submit" class="btn btn-danger">Salvar</button>
 
-									<button th:if="${edit}" th:onclick="return remover();"
+									<button sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE')" th:if="${edit}" th:onclick="return remover();"
 										type="button" class="btn btn-secondary">Remover</button>
 
 								</form>
@@ -176,7 +189,7 @@
 	</div>
 
 	<script type="text/javascript">
-		$("#menu").load("/menu");
+		$("#menu").load("/controlx-1.0/menu");
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
@@ -184,8 +197,13 @@
 		});
 	</script>
 
+	<!-- Include Date Range Picker -->
 	<script type="text/javascript">
-		$("#cnpj").mask("00.000.000/0000-00");
+		$(document).ready(function() {
+			$('#phone-number').mask('(00)00000-0000');
+			$('#cnpj').mask('00.000.000/0000-00');
+			$('#cep').mask('00000-000');
+		});
 	</script>
 
 	<!-- Javascript com Thymeleaf -->
@@ -193,11 +211,12 @@
 		/*<![CDATA[*/
 
 		function remover() {
-			if (confirm("Tem certeza que deseja remover?"))
-				/*[+ var url =  [[@{/removerProduto/{idproduto}(idproduto=${id})}]];
+			if (confirm("Tem certeza que deseja remover?")) {
+				/*[+ var url =  [[@{/fornecedores/remover/{idproduto}(idproduto=${id})}]];
 				+]*/
 				location.href = url;
-			alert("Removido com sucesso!");
+				alert("Removido com sucesso!");
+			}
 		}
 		/*]]>*/
 	</script>
@@ -218,5 +237,7 @@
 
 	<script
 		src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
 </html>

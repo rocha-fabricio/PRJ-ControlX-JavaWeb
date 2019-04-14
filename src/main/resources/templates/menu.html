@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-
-<ul class="sidebar-nav" id="sidebar">
-	<li><a href="vender">Vender<span
+<ul class="sidebar-nav" id="sidebar" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<li><a href="/controlx-1.0/vender">Vender<span
 			class="sub_icon glyphicon glyphicon-usd" title="Vendas"></span></a></li>
-	<li><a href="**/estoque">Estoque<span
+	<li><a href="/controlx-1.0/estoque">Estoque<span
 			class="sub_icon glyphicon glyphicon-check" title="Estoque"></span></a></li>
-	<li><a href="fornecedores">Fornecedores<span
+	<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE', 'ROLE_ALMOXARIFE')"><a href="/controlx-1.0/fornecedores">Fornecedores<span
 			class="sub_icon glyphicon glyphicon-download-alt"
-			title="Fornecedores"></span></a></li>
-	<li><a href="usuarios">Usuários<span
+			title="/controlx-1.0/Fornecedores"></span></a></li>
+	<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE')"><a href="/controlx-1.0/usuarios">Usuários<span
 			class="sub_icon glyphicon glyphicon-user" title="Usuários"></span></a></li>
-	<li><a href="historico">Histórico<span
+	<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE')"><a href="/controlx-1.0/historico">Histórico<span
 			class="sub_icon glyphicon glyphicon-stats" title="Relatórios"></span></a></li>
-	<li><a href="index">Sair<span
+	<li><a href="/controlx-1.0/logout">Sair<span
 			class="sub_icon glyphicon glyphicon-off" title="Sair"></span></a></li>
 </ul>
