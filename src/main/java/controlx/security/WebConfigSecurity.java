@@ -25,10 +25,10 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter{
 		http.csrf()
 		.disable() //Desativa as configurações padrões de memória.
 		.authorizeRequests() //Permitir/restringir acessos.
-		.antMatchers(HttpMethod.GET, "/rest/produtos/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/rest/categorias/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/rest/fornecedores/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/rest/usuarios/**").permitAll()
+		.antMatchers(HttpMethod.GET, "/rest/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/rest/**").permitAll()
+		.antMatchers(HttpMethod.DELETE, "/rest/**").permitAll()
+		.antMatchers(HttpMethod.PUT, "/rest/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/login").permitAll()
 		
 		.antMatchers(HttpMethod.GET, "/menu").hasAnyRole("ADMIN", "GERENTE", "ALMOXARIFE", "VENDEDOR")

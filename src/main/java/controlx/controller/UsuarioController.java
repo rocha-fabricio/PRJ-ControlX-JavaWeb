@@ -39,7 +39,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	@GetMapping("/cadastrarUsuario")
+	@GetMapping("/cadastrar")
 	public ModelAndView cadastrar() {
 		ModelAndView modelAndView = new ModelAndView("/formUsuario");
 		modelAndView.addObject("usuarioObj", new Usuario());

@@ -23,6 +23,7 @@ public class ProdutoRest {
 
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
 	@GetMapping(value = "/listarTodos", produces = "application/json")
 	public ResponseEntity<List<Produto>> listar() {
 		List<Produto> produtos = (List<Produto>) produtoRepository.findAll();

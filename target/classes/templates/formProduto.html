@@ -126,7 +126,7 @@
 									</div>
 									<br> <a href="/controlx-1.0/estoque"><button
 											type="button" class="btn btn-danger">Voltar</button></a>
-									<button type="submit" class="btn btn-danger">Salvar</button>
+									<button type="submit" class="btn btn-danger" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE', 'ROLE_ALMOXARIFE')">Salvar</button>
 
 									<button th:if="${edit}" th:onclick="return remover();"
 										type="button" class="btn btn-secondary" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_GERENTE', 'ROLE_ALMOXARIFE')">Remover</button>

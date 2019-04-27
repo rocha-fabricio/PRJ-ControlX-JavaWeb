@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableJpaRepositories(basePackages= {"controlx.repository"})
 @EnableTransactionManagement
 @RestController
-
 public class SpringbootApplication extends SpringBootServletInitializer implements WebMvcConfigurer{
 
 	@Override

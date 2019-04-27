@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Usuario implements UserDetails {
 
@@ -83,6 +85,10 @@ public class Usuario implements UserDetails {
 	@NotNull(message = "Digite a senha.")
 	@NotEmpty(message = "Digite a senha.")
 	private String senha;
+	
+	@NotNull(message = "Digite a url da imagem.")
+	@NotEmpty(message = "Digite a url da imagem.")
+	private String imagemUrl;
 	
 	@ManyToOne
 	@JoinColumn(name = "role_id")
@@ -215,7 +221,9 @@ public class Usuario implements UserDetails {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	public void setRole(Long roleId) {
+		Role role = new Role();
+		role.setId(roleId);
 		this.role = role;
 	}
 
@@ -227,6 +235,15 @@ public class Usuario implements UserDetails {
 		this.deleted = deleted;
 	}
 
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
+	}
+
+	@JsonIgnore
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -235,36 +252,42 @@ public class Usuario implements UserDetails {
 		return roles;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
 		return senha;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return login;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isAccountNonLocked() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
+	@JsonIgnore
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub

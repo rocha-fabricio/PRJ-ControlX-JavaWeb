@@ -25,9 +25,14 @@
 	href="/controlx-1.0/resources/css/form.css?version=12" />
 <!------ Include the above in your HEAD tag ---------->
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 <title>ControlX - Vender</title>
 </head>
-<body id="container">
+
+<body id="container" ng-app="CountryManagement"
+	ng-controller="CountryController">
 	<div id="wrapper" class="">
 		<!-- Sidebar -->
 		<div id="sidebar-wrapper">
@@ -37,7 +42,6 @@
 			</ul>
 			<div id="menu"></div>
 		</div>
-
 		<!-- Page content -->
 		<div id="page-content-wrapper">
 			<!-- Keep all page content within the page-content inset div! -->
@@ -50,7 +54,7 @@
 								<div class="col-md-12">
 									<div class="row">
 										<div class="col-4">
-											<form class="text-left" method="post" action="">
+											<div>
 												<div class="form-row">
 													<div class="form-group col-12">
 														<h2>
@@ -67,8 +71,7 @@
 														<h3>
 															<label>Nome do produto:</label> <input type="number"
 																class="form-control" name="nome" id="nome"
-																placeholder="Nome do produto" readonly="readonly"
-																th:value="${produto.nome}">
+																placeholder="Nome do produto" readonly="readonly">
 														</h3>
 													</div>
 												</div>
@@ -84,8 +87,7 @@
 														<h3>
 															<label>Unidade:</label> <input type="text"
 																class="form-control" name="un" id="un"
-																placeholder="Unidade" readonly="readonly"
-																th:value="${produto.un}">
+																placeholder="Unidade" readonly="readonly">
 														</h3>
 													</div>
 												</div>
@@ -95,12 +97,14 @@
 														<h3>
 															<label>Valor unitário:</label> <input type="number"
 																class="form-control" name="preco" id="preco"
-																placeholder="Valor unitário" readonly="readonly"
-																th:value="${produto.preco}">
+																placeholder="Valor unitário" readonly="readonly">
 														</h3>
 													</div>
 												</div>
+											</div>
 
+
+											<form class="text-left" ng-submit="vender()">
 												<div class="form-row">
 													<div class="form-group col-6">
 														<h3>
@@ -134,32 +138,18 @@
 															Venda</button>
 													</div>
 												</div>
-
 											</form>
+											
 										</div>
 										<div class="col-8 list-view" style="height: 750px;">
 											<table class="responsive-table">
 												<tr>
-													<th style="text-align: center;">ID</th>
+													<th style="text-align: center;">Código</th>
 													<th style="text-align: center;">Nome</th>
 													<th style="text-align: center;">Qtd</th>
-													<th style="text-align: center;">UN</th>
+													<th style="text-align: center;">Un</th>
 													<th style="text-align: center;">Preço</th>
 													<th style="text-align: center;">Remover</th>
-												</tr>
-												<tr th:each="produto : ${produtos}">
-													<td th:text="${produto.id}"></td>
-													<td th:text="${produto.nome}"></td>
-													<td th:text="${produto.qtd}"></td>
-													<td th:text="${produto.un}"></td>
-													<td th:text="${produto.preco}"></td>
-													<td><a href="#"><img
-															src="resources/img/excluir.png" width="20px"
-															height="20px" title="Excluir"></img></a></td>
-													<!-- <td><a
-													href="formProduto.html?acao=editar&id=${produto.id}"><img
-														src="resources/img/editar.png" width="20px" height="20px"
-														title="Editar"></img></a></td>  -->
 												</tr>
 											</table>
 										</div>
@@ -180,7 +170,6 @@
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
-		
 	</script>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
