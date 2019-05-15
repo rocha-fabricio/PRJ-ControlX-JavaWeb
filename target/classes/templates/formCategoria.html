@@ -48,10 +48,10 @@
 						<div class="row">
 							<div class="container p-5 bg-white">
 
-								<form method="post" action="salvar"
+								<form method="post" action="categorias/salvar"
 									th:object="${categoriaObj}">
 									<div class="form-row">
-										<div class="form-group col-2">
+										<div class="form-group col-md-2">
 											<label for="id">ID</label> <input readonly="readonly"
 												type="number" class="form-control" id="id" placeholder="ID"
 												th:field="*{id}">

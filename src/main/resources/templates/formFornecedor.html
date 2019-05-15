@@ -54,15 +54,15 @@
 						<div class="row">
 							<div class="container p-5 bg-white">
 
-								<form method="post" action="salvar"
+								<form method="post" action="fornecedores/salvar"
 									th:object="${fornecedorObj}">
 									<div class="row">
-										<div class="col-12">
+										<div class="col-md-12">
 											<h3 class="mb-5">Dados do fornecedor</h3>
 										</div>
 									</div>
 									<div class="form-row">
-										<div class="form-group col-2">
+										<div class="form-group col-md-2">
 											<label for="id">ID</label> <input readonly="readonly"
 												type="number" class="form-control" name="id" id="id"
 												placeholder="ID" th:field="*{id}">
@@ -75,12 +75,12 @@
 
 									</div>
 									<div class="form-row ">
-										<div class="form-group col-6">
+										<div class="form-group col-md-6">
 											<label for="cnpj">CNPJ:</label> <input type="text"
 												class="form-control" name="cnpj" id="cnpj"
 												placeholder="CNPJ" th:field="*{cnpj}" required>
 										</div>
-										<div class="form-group col-6">
+										<div class="form-group col-md-6">
 											<label for="fone">Telefone:</label> <input type="tel"
 												class="form-control" name="telefone" id="phone-number"
 												placeholder="Telefone" th:field="*{telefone}" required>
@@ -88,44 +88,44 @@
 									</div>
 									<hr>
 									<div class="row">
-										<div class="col-12">
+										<div class="col-md-12">
 											<h3 class="mb-5">Endereço</h3>
 										</div>
 									</div>
 									<div class="form-row text-center">
-										<div class="form-group col-2">
+										<div class="form-group col-md-2">
 											<label for="cep">Cep:</label> <input type="text"
 												class="form-control" name="cep" id="cep" placeholder="Cep"
 												th:field="*{cep}" required>
 										</div>
-										<div class="form-group col-4">
+										<div class="form-group col-md-4">
 											<label for="rua">Rua:</label> <input type="text"
 												class="form-control" name="rua" id="rua" placeholder="Rua"
 												th:field="*{rua}" required>
 										</div>
-										<div class="form-group col-2">
+										<div class="form-group col-md-2">
 											<label for="numero">Numero:</label> <input type="text"
 												class="form-control" name="num" id="num"
 												placeholder="Numero" th:field="*{num}" required>
 										</div>
-										<div class="form-group col-4">
+										<div class="form-group col-md-4">
 											<label for="bairro">Bairro:</label> <input type="text"
 												class="form-control" name="bairro" id="bairro"
 												placeholder="Bairro" th:field="*{bairro}" required>
 										</div>
 									</div>
 									<div class="form-row text-center">
-										<div class="form-group col-4">
+										<div class="form-group col-md-4">
 											<label for="comp">Complemento:</label> <input type="text"
 												class="form-control" name="comp" id="comp"
 												placeholder="Complemento" th:field="*{comp}" required>
 										</div>
-										<div class="form-group col-4">
+										<div class="form-group col-md-4">
 											<label for="cidade">Cidade:</label> <input type="text"
 												class="form-control" name="cidade" id="cidade"
 												placeholder="Cidade" th:field="*{cidade}" required>
 										</div>
-										<div class="form-group col-4">
+										<div class="form-group col-md-4">
 											<label for="estado">Estado:</label> <select name="estado"
 												id="estado" class="form-control" required>
 												<option th:value="0" disabled selected>Escolha...</option>

@@ -17,7 +17,6 @@
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 
-
 <!--  jQuery -->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -61,19 +60,19 @@
 						<p class="well lead">Histórico</p>
 						<div class="row">
 							<div class="container p-5 bg-white">
-								<form class="text-center" action="historicoVendas.html">
+								<form class="text-center" action="historico/buscar" method="post">
 									<div class="form-row">
-										<div class="col-12">
+										<div class="col-md-12">
 											<h3 class="mb-5">Histórico de vendas</h3>
 										</div>
 									</div>
 									<div class="form-row text-center">
-										<div class="form-group container-fluid col-6" id="dateNasc">
+										<div class="form-group container-fluid col-md-6" id="dateNasc">
 											<label for="dataNasc">Selecione a data:</label>
 											<div class="input-daterange input-group m-4" id="datepicker">
 												<input type="text" class="input-sm form-control"
-													name="start" /> <span class="input-group-addon">até</span>
-												<input type="text" class="input-sm form-control" name="end" />
+													name="start" autocomplete="off" required/> <span class="input-group-addon">até</span>
+												<input type="text" class="input-sm form-control" name="end" autocomplete="off" required/>
 											</div>
 										</div>
 									</div>
@@ -101,11 +100,11 @@
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript">
 		$('#dateNasc input').datepicker({
-			format : "dd/mm/yyyy",
+			format : "dd-mm-yyyy",
 			clearBtn : true,
 			language : "pt-BR",
 		});
-	</script>
+	</script> 
 
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 

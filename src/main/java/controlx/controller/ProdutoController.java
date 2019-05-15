@@ -8,6 +8,9 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import controlx.model.Produto;
+import controlx.model.Usuario;
 import controlx.repository.CategoriaRepository;
 import controlx.repository.FornecedorRepository;
 import controlx.repository.ProdutoRepository;
@@ -66,23 +70,23 @@ public class ProdutoController {
 
 	@PostMapping("**/salvar")
 	public ModelAndView salvar(@Valid Produto produto, BindingResult bindingResult) {
-		//Verifica erros no formulário
+		// Verifica erros no formulário
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView("/formProduto");
 			modelAndView.addObject("produtoObj", produto);
 			modelAndView.addObject("categorias", categoriaRepository.findAll());
 			modelAndView.addObject("fornecedores", fornecedorRepository.findAll());
-			
+
 			List<String> msg = new ArrayList<>();
 			for (ObjectError objectError : bindingResult.getAllErrors()) {
 				msg.add(objectError.getDefaultMessage());
 			}
-			
+
 			modelAndView.addObject("msg", msg);
 			return modelAndView;
 		}
-		
-		//Se não tiver erros...
+
+		// Se não tiver erros...
 		produtoRepository.save(produto);
 		return listarTodos();
 	}

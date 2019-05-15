@@ -27,6 +27,9 @@
 	<div class="wrapper">
 		<form class="login" method="post" th:action="@{/login}">
 			<p class="title text-center">ControlX</p>
+			<div th:if="${(param.error != null) and (param.error[0] == 'true')}"
+				class="alert alert-danger text-center" role="alert">Usuário ou senha
+				inválido</div>
 			<input type="text" placeholder="Usuario" autofocus name="username" />
 			<i class="fa fa-user"></i> <input type="password" placeholder="Senha"
 				name="password" /> <i class="fa fa-key"></i>

@@ -49,7 +49,7 @@
 							<div class="container-fluid bg-white">
 								<div class="col-md-12">
 									<div class="row">
-										<div class="col-12 text-center">
+										<div class="col-md-12 text-center">
 											<div class="container-fluid" id="form">
 												<a href="/controlx-1.0/estoque/cadastrar"><button type="button"
 														class="btn btn-danger btn-lg">Adicionar Produto</button></a> <a
@@ -59,9 +59,9 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-12 text-center">
-											<div class="container-fluid" id="form">
-												<form action="pesquisar" method="post">
+										<div class="col-md-12 text-center">
+											<div class="" id="form">
+												<form action="estoque/pesquisar" method="post">
 													<label>Pesquisar produto:</label> <input name="pesquisa">
 													<div class="form-check form-check-inline">
 														<input class="form-check-input" type="radio" name="tipoPesquisa"
@@ -79,22 +79,22 @@
 										</div>
 									</div>
 									<div class="row list-view">
-										<table class="responsive-table">
+										<table class="table table-striped table-bordered">
 											<tr>
-												<th style="text-align: center;">ID</th>
-												<th style="text-align: center;">Nome</th>
-												<th style="text-align: center;">Quantidade</th>
-												<th style="text-align: center;">Un</th>
-												<th style="text-align: center;">Preço</th>
-												<th style="text-align: center;">Categoria</th>
-												<th style="text-align: center;">Editar</th>
+												<th scope="col" style="text-align: center;">ID</th>
+												<th scope="col" style="text-align: center;">Nome</th>
+												<th scope="col" style="text-align: center;">Quantidade</th>
+												<th scope="col" style="text-align: center;">Un</th>
+												<th scope="col" style="text-align: center;">Preço</th>
+												<th scope="col" style="text-align: center;">Categoria</th>
+												<th scope="col" style="text-align: center;">Editar</th>
 											</tr>
 											<tr th:each="produto : ${produtos}">
 												<td th:text="${produto.id}"></td>
 												<td th:text="${produto.nome}"></td>
 												<td th:text="${produto.qtd}"></td>
 												<td th:text="${produto.tipoUn}"></td>
-												<td th:text="${produto.preco}"></td>
+												<td th:text="${#numbers.formatCurrency(produto.preco)}"></td>
 												<td th:text="${produto.categoria.nome}"></td>
 												<td><a
 													th:href="@{/estoque/editar/{idproduto}(idproduto=${produto.id})}"><img

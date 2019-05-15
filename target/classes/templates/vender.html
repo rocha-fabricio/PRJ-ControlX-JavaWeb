@@ -7,6 +7,9 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -23,16 +26,15 @@
 	href="/controlx-1.0/resources/css/principal.css?version=12" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="/controlx-1.0/resources/css/form.css?version=12" />
+<script src="/controlx-1.0/resources/js/venda.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
 
 <title>ControlX - Vender</title>
 </head>
 
-<body id="container" ng-app="CountryManagement"
-	ng-controller="CountryController">
+<body id="container" ng-app="Vender" ng-controller="VenderController">
 	<div id="wrapper" class="">
 		<!-- Sidebar -->
 		<div id="sidebar-wrapper">
@@ -53,39 +55,41 @@
 							<div class="container-fluid bg-white p-5">
 								<div class="col-md-12">
 									<div class="row">
-										<div class="col-4">
+										<div class="col-md-4">
 											<div>
 												<div class="form-row">
-													<div class="form-group col-12">
+													<div class="form-group col-sm-12">
+														<h4 class="text-danger text-center">{{ msg }}</h4>
 														<h2>
-															<label>Codigo:</label> <input type="number"
+															<label>Codigo:</label> <input
+																ng-model="produtoForm.codigoBarras" type="number"
 																class="form-control" name="codigo" id="codigo"
-																placeholder="Código do produto">
+																placeholder="Código do produto" autofocus="autofocus">
 														</h2>
-														<h1 hidden="true" class="text-danger">Produto sem
-															estoque!</h1>
 													</div>
 												</div>
 												<div class="form-row">
-													<div class="form-group col-12">
+													<div class="form-group col-md-12">
 														<h3>
-															<label>Nome do produto:</label> <input type="number"
+															<label>Nome do produto:</label> <input
+																ng-model="produtoForm.nome" type="text"
 																class="form-control" name="nome" id="nome"
 																placeholder="Nome do produto" readonly="readonly">
 														</h3>
 													</div>
 												</div>
 												<div class="form-row">
-													<div class="form-group col-6">
+													<div class="form-group col-md-6">
 														<h3>
-															<label>Quantidade:</label> <input type="number"
-																class="form-control" name="qtd" id="qtd"
-																placeholder="Quantidade">
+															<label>Quantidade:</label> <input
+																ng-model="produtoForm.qtd" id="qtd" type="number"
+																class="form-control" placeholder="Quantidade">
 														</h3>
 													</div>
-													<div class="form-group col-6">
+													<div class="form-group col-md-6">
 														<h3>
-															<label>Unidade:</label> <input type="text"
+															<label>Unidade:</label> <input
+																ng-model="produtoForm.tipoUn" type="text"
 																class="form-control" name="un" id="un"
 																placeholder="Unidade" readonly="readonly">
 														</h3>
@@ -93,11 +97,13 @@
 												</div>
 
 												<div class="form-row">
-													<div class="form-group col-12">
+													<div class="form-group col-md-12">
 														<h3>
-															<label>Valor unitário:</label> <input type="number"
+															<label>Valor unitário:</label> <input
+																ng-model="produtoForm.preco" type="text"
 																class="form-control" name="preco" id="preco"
-																placeholder="Valor unitário" readonly="readonly">
+																placeholder="Valor unitário" readonly="readonly"
+																value="{{produtoForm.preco|currency:'R$'}}">
 														</h3>
 													</div>
 												</div>
@@ -106,43 +112,47 @@
 
 											<form class="text-left" ng-submit="vender()">
 												<div class="form-row">
-													<div class="form-group col-6">
+													<div class="form-group col-sm-6">
 														<h3>
-															<label>Data:</label> <input type="number"
+															<label>Data:</label> <input type="datetime"
 																class="form-control" name="data" id="data"
-																placeholder="Data" readonly="readonly">
+																placeholder="Data" readonly="readonly"
+																value="{{ currentTime | date:'dd/MM/yyyy'}}">
 														</h3>
 													</div>
-													<div class="form-group col-6">
+													<div class="form-group col-md-6">
 														<h3>
-															<label>Hora:</label> <input type="number"
+															<label>Hora:</label> <input type="datetime"
 																class="form-control" name="Hora" id="Hora"
-																placeholder="Hora" readonly="readonly">
+																placeholder="Hora" readonly="readonly"
+																value="{{ currentTime | date:'HH:mm:ss'}}"> <span>
+															</span>
 														</h3>
 													</div>
 												</div>
 												<div class="form-row">
-													<div class="form-group col-12">
+													<div class="form-group col-sm-12">
 														<h1>
 															<label>Total a pagar:</label> <input type="text"
-																name="total" id="total" placeholder="R$100,00"
-																readonly="readonly">
+																class="form-control" name="total" id="total"
+																readonly="readonly"
+																value="{{vendaForm.valor|currency:'R$'}}" />
 														</h1>
 													</div>
 												</div>
 
 
 												<div class="form-row">
-													<div class="form-group col-12">
+													<div class="form-group col-md-12">
 														<button type="submit" class="btn btn-danger btn-block">Finalizar
 															Venda</button>
 													</div>
 												</div>
 											</form>
-											
+
 										</div>
-										<div class="col-8 list-view" style="height: 750px;">
-											<table class="responsive-table">
+										<div class="col-md-8 list-view" style="height: 750px;">
+											<table class="table table-striped table-bordered">
 												<tr>
 													<th style="text-align: center;">Código</th>
 													<th style="text-align: center;">Nome</th>
@@ -150,6 +160,16 @@
 													<th style="text-align: center;">Un</th>
 													<th style="text-align: center;">Preço</th>
 													<th style="text-align: center;">Remover</th>
+												</tr>
+												<tr ng-repeat="p in vendaForm.produtos">
+
+													<td>{{ p.codigoBarras }}</td>
+													<td>{{ p.nome }}</td>
+													<td>{{ p.qtd }}</td>
+													<td>{{ p.tipoUn }}</td>
+													<td>{{ p.preco | currency:'R$' }}</td>
+
+													<td><a ng-click="removerProduto(p)" class="red-button">Remover</a></td>
 												</tr>
 											</table>
 										</div>
@@ -170,6 +190,7 @@
 			e.preventDefault();
 			$("#wrapper").toggleClass("active");
 		});
+
 	</script>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

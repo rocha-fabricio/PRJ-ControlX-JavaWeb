@@ -49,7 +49,7 @@
 							<div class="container-fluid bg-white">
 								<div class="col-md-12">
 									<div class="row">
-										<div class="col-12 text-center">
+										<div class="col-md-12 text-center">
 											<div class="container-fluid" id="form">
 												<a href="historico.html"><button type="button"
 														class="btn btn-danger btn-lg">Voltar</button></a>
@@ -57,26 +57,25 @@
 										</div>
 									</div>
 									<div class="row list-view">
-										<table class="responsive-table">
+										<table class="table table-striped table-bordered">
 											<tr>
 												<th style="text-align: center;">ID</th>
 												<th style="text-align: center;">Data</th>
+												<th style="text-align: center;">Hora</th>
 												<th style="text-align: center;">Usuário</th>
 												<th style="text-align: center;">Valor</th>
 												<th style="text-align: center;">Visualizar</th>
 											</tr>
-											<tr th:each="usuario: ${usuarios}">
+											<tr th:each="venda: ${vendas}">
 												<td th:text="${venda.id}"></td>
 												<td th:text="${venda.data}"></td>
-												<td th:text="${venda.usuario}"></td>
-												<td th:text="${venda.valor}"></td>
-												<td><a href="formVenda.html?acao=view&id="><img
-														src="resources/img/editar.png" width="20px" height="20px"
-														title="Editar"></img></a></td>
-												<!-- <td><a
-													href="formProduto.html?acao=editar&id=${produto.id}"><img
-														src="resources/img/editar.png" width="20px" height="20px"
-														title="Editar"></img></a></td>  -->
+												<td th:text="${venda.hora}"></td>
+												<td th:text="${venda.usuario.nome}"></td>
+												<td th:text="${#numbers.formatCurrency(venda.valor)}"></td>
+												<td><a
+													th:href="@{/historico/visualizar/{idvenda}(idvenda=${venda.id})}"><img
+														src="/controlx-1.0/resources/img/editar.png" width="20px"
+														height="20px" title="Visualizar"></img></a></td>
 											</tr>
 										</table>
 									</div>

@@ -28,7 +28,7 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
 	@Query("SELECT u FROM Usuario u WHERE deleted = 0")
 	Iterable<Usuario> findAll();
 	
-	@Query("SELECT u FROM Usuario u WHERE login = ?1")
+	@Query("SELECT u FROM Usuario u WHERE login = ?1 AND deleted = 0")
 	Usuario findUserByLogin(String login);
 	
 }
