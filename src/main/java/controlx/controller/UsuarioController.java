@@ -1,6 +1,5 @@
 package controlx.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -61,7 +60,8 @@ public class UsuarioController {
 		Optional<Usuario> u = usuarioRepository.findById(idusuario);
 		u.get().setDeleted(true);
 		usuarioRepository.save(u.get());
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		return modelAndView;
 	}
 
 	@PostMapping("**/salvar")
@@ -83,7 +83,8 @@ public class UsuarioController {
 		
 		//Se não tiver erros...
 		usuarioRepository.save(usuario);
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		return modelAndView;
 	}
 
 	@GetMapping("**/")

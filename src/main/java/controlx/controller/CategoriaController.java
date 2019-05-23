@@ -45,12 +45,14 @@ public class CategoriaController {
 		return modelAndView;
 	}
 
-	@GetMapping("**/remover/{idcategoria}")
+	@GetMapping("/remover/{idcategoria}")
 	public ModelAndView excluir(@PathVariable("idcategoria") Long idcategoria) {
 		Optional<Categoria> c = categoriaRepository.findById(idcategoria);
-		c.get().setDeleted(true);
-		categoriaRepository.save(c.get());
-		return listarTodos();
+		Categoria categoria = c.get();
+		categoria.setDeleted(true);
+		categoriaRepository.save(categoria);
+		ModelAndView modelAndView = new ModelAndView("redirect:/categorias");
+		return modelAndView;
 	}
 
 	@PostMapping("**/salvar")
@@ -72,7 +74,8 @@ public class CategoriaController {
 		
 		//Se não tiver erros...
 		categoriaRepository.save(categoria);
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/categorias");
+		return modelAndView;
 	}
 
 	@GetMapping("**/")

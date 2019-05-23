@@ -48,12 +48,13 @@ public class FornecedorController {
 		return modelAndView;
 	}
 
-	@GetMapping("**/remover/{idfornecedor}")
+	@GetMapping("/remover/{idfornecedor}")
 	public ModelAndView excluir(@PathVariable("idfornecedor") Long idfornecedor) {
 		Optional<Fornecedor> f = fornecedorRepository.findById(idfornecedor);
 		f.get().setDeleted(true);
 		fornecedorRepository.save(f.get());
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/fornecedores");
+		return modelAndView;
 	}
 
 	@PostMapping("**/salvar")
@@ -75,7 +76,8 @@ public class FornecedorController {
 		
 		//Se não tiver erros...
 		fornecedorRepository.save(fornecedor);
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/fornecedores");
+		return modelAndView;
 	}
 
 	@GetMapping("**/")

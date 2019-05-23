@@ -60,12 +60,13 @@ public class ProdutoController {
 		return modelAndView;
 	}
 
-	@GetMapping("**/remover/{idproduto}")
+	@GetMapping("/remover/{idproduto}")
 	public ModelAndView excluir(@PathVariable("idproduto") Long idproduto) {
 		Optional<Produto> p = produtoRepository.findById(idproduto);
 		p.get().setDeleted(true);
 		produtoRepository.save(p.get());
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		return modelAndView;
 	}
 
 	@PostMapping("**/salvar")
@@ -88,7 +89,8 @@ public class ProdutoController {
 
 		// Se não tiver erros...
 		produtoRepository.save(produto);
-		return listarTodos();
+		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		return modelAndView;
 	}
 
 	@GetMapping("**/")
