@@ -30,6 +30,13 @@ public class UsuarioRest {
 		List<Usuario> usuarios = (List<Usuario>) usuarioRepository.findAll();
 		return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/buscar/{id}", produces = "application/json")
+	public ResponseEntity<Optional<Usuario>> listarById(@PathVariable("id") Long id) {
+		Optional<Usuario> u = usuarioRepository.findById(id);
+		return new ResponseEntity<Optional<Usuario>>(u, HttpStatus.OK);
+	}
+
 
 	@PostMapping(value = "/cadastrar", produces = "application/json")
 	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {

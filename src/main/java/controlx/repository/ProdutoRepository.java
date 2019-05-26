@@ -22,6 +22,9 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long>{
 	@Query("SELECT p FROM Produto p WHERE p.codigoBarras = ?1 AND deleted = 0")
 	Produto findProdutoByCodigo(String codigo);
 	
+	@Query("SELECT p FROM Produto p WHERE p.id != ?1 AND p.codigoBarras = ?2 AND deleted = 0")
+	List<Produto> verificarCodigoExistente(Long id, String codigo);
+	
 	@Override
 	@Query("UPDATE Produto SET deleted = 1 WHERE id = ?1")
 	void deleteById(Long id);
@@ -29,6 +32,4 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long>{
 	@Override
 	@Query("SELECT p FROM Produto p WHERE deleted = 0")
 	Iterable<Produto> findAll();
-	
-	
 }

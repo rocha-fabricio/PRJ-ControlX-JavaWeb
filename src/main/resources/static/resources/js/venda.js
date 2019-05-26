@@ -6,6 +6,11 @@ app
 				"VenderController",
 				function($scope, $http, $interval, $filter) {
 
+					$scope.status = {
+						msg: "CAIXA LIVRE",
+						cor: "text-success"
+					};
+					
 					$scope.enter = document.getElementById("codigo");
 					$scope.enterQtd = document.getElementById("qtd");
 
@@ -44,7 +49,9 @@ app
 					$scope.enter.addEventListener("keydown", function(e) {
 						if (e.keyCode === 13) { // checks whether the
 							// pressed
-							if ($scope.produtoForm.codigoBarras != undefined) {						
+							if ($scope.produtoForm.codigoBarras != undefined) {	
+								$scope.status.cor = "text-danger";
+								$scope.status.msg = "CAIXA OCUPADO";
 								if ($scope.produtoForm.qtd == "") {
 									$scope.produtoForm.qtd = 1;
 								}
@@ -67,7 +74,10 @@ app
 					});
 
 					$scope.addProdutoVenda = function() {
+						
+						//Verifica se produto já existe na lista de vendas
 						for (let i = 0; i < $scope.vendaForm.produtos.length; i++) {
+							//Se existir, apenas modifica a qtd
 							if ($scope.produtoForm.codigoBarras == $scope.vendaForm.produtos[i].codigoBarras) {
 								
 								let produto = $scope.produtosEditados.filter(produto => produto.codigoBarras == $scope.produtoForm.codigoBarras);
@@ -87,10 +97,9 @@ app
 
 								$scope.vendaForm.valor += ($scope.produtoForm.qtd * $scope.produtoForm.preco)
 
-								for (let y = 0; i < $scope.produtosEditados.length; i++) {
+								for (let y = 0; y < $scope.produtosEditados.length; y++) {
 									if ($scope.produtosEditados[y].codigoBarras == $scope.produtoForm.codigoBarras) {
-										$scope.produtosEditados[y].qtd = $scope.produtosEditados[y].qtd
-												- $scope.produtoForm.qtd;
+										$scope.produtosEditados[y].qtd = $scope.produtosEditados[y].qtd	- $scope.produtoForm.qtd;
 										break;
 									}
 								}
@@ -99,6 +108,7 @@ app
 							}
 						}
 
+						//Busca produto no banco de dados para adicionar na lista de venda
 						for (let i = 0; i < $scope.todosProdutos.length; i++) {
 							if ($scope.todosProdutos[i].codigoBarras == $scope.produtoForm.codigoBarras) {
 								let produtoAtualizado = JSON.parse(JSON
@@ -201,7 +211,7 @@ app
 						$http(
 								{
 									method : 'GET',
-									url : 'http://localhost:8080/controlx-1.0/rest/produtos/listarTodos'
+									url : '/controlx-1.0/rest/produtos/listarTodos'
 								}).then(
 								function successCallback(response) {
 									$scope.todosProdutos = JSON.parse(JSON
@@ -237,6 +247,9 @@ app
 						$scope.produtosEditados = [];
 						$scope.vendaForm.produtos = [];
 						$scope.todosProdutos = [];
+						$scope.msg = "";
+						$scope.status.cor = "text-success";
+						$scope.status.msg = "CAIXA LIVRE";
 					}
 					;
 				});

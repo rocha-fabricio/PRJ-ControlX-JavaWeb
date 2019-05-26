@@ -72,13 +72,17 @@ public class ProdutoController {
 	@PostMapping("**/salvar")
 	public ModelAndView salvar(@Valid Produto produto, BindingResult bindingResult) {
 		// Verifica erros no formulário
-		if (bindingResult.hasErrors()) {
+		List <Produto> p = produtoRepository.verificarCodigoExistente(produto.getId(), produto.getCodigoBarras());
+		if (bindingResult.hasErrors() || !p.isEmpty()) {
 			ModelAndView modelAndView = new ModelAndView("/formProduto");
 			modelAndView.addObject("produtoObj", produto);
 			modelAndView.addObject("categorias", categoriaRepository.findAll());
 			modelAndView.addObject("fornecedores", fornecedorRepository.findAll());
-
 			List<String> msg = new ArrayList<>();
+			if(!p.isEmpty()) {
+				msg.add("Este código de barras já está em uso");
+			}
+				
 			for (ObjectError objectError : bindingResult.getAllErrors()) {
 				msg.add(objectError.getDefaultMessage());
 			}

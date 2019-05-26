@@ -50,7 +50,7 @@
 			<div class="page-content inset">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="well lead text-center">Vender</p>
+						<p class="font-weight-bold well lead text-center  {{ status.cor }}">{{ status.msg }}</p>
 						<div class="row">
 							<div class="container-fluid bg-white p-5">
 								<div class="col-md-12">
@@ -159,17 +159,17 @@
 													<th style="text-align: center;">Qtd</th>
 													<th style="text-align: center;">Un</th>
 													<th style="text-align: center;">Preço</th>
-													<th style="text-align: center;">Remover</th>
+													<th style="text-align: center;"></th>
 												</tr>
-												<tr ng-repeat="p in vendaForm.produtos">
+												<tr ng-repeat="p in vendaForm.produtos" class="text-center text-uppercase">
 
-													<td>{{ p.codigoBarras }}</td>
-													<td>{{ p.nome }}</td>
-													<td>{{ p.qtd }}</td>
-													<td>{{ p.tipoUn }}</td>
-													<td>{{ p.preco | currency:'R$' }}</td>
+													<td class="pt-4">{{ p.codigoBarras }}</td>
+													<td class="pt-4">{{ p.nome }}</td>
+													<td class="pt-4">{{ p.qtd }}</td>
+													<td class="pt-4">{{ p.tipoUn }}</td>
+													<td class="pt-4">{{ p.preco | currency:'R$' }}</td>
 
-													<td><a ng-click="removerProduto(p)" class="red-button">Remover</a></td>
+													<td><button ng-click="removerProduto(p)" class="btn btn-danger btn-block">Remover</button></td>
 												</tr>
 											</table>
 										</div>

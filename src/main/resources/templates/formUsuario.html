@@ -222,14 +222,14 @@
 									</div>
 									<div class="form-row text-center">
 										<div class="form-group col-md-4">
-											<label for="login">Usuario:</label> <input type="text"
+											<label for="login">Usuario:</label> <input th:readonly="${edit}" type="text"
 												class="form-control" name="login" id="login"
 												placeholder="Usuário" th:field="*{login}" required>
 										</div>
 										<div class="form-group col-md-4">
 											<label for="senha">Senha:</label> <input type="password"
 												class="form-control" name="senha" id="senha"
-												placeholder="Senha" th:field="*{senha}" required>
+												placeholder="Senha" th:value="*{senha}" required>
 										</div>
 										<div class="form-group col-md-4">
 											<label for="role">Cargo:</label> <select name="role"
