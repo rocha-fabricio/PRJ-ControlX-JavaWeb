@@ -16,7 +16,7 @@ RF1 - O sistema deve permitir o cadastro, edição e remoção de Produtos, Forn
 RF2 - O sistem deve conter os seguintes cargos de usúarios: Administrador, Gerente, Almoxarife e Vendedor;<br>
 RF3 - O sistema deve ter um sistema de login com niveis de acesso para cada cargo;<br>
 RF4 - O sistema deve ter a funcionálidade de Venda de Produtos;<br>
-RF5 - O sistema deve ter um aplicativo para gerenciamento de produtos, usuários e fornecedores;<br>
+RF5 - O sistema deve ter um aplicativo mobile para gerenciamento de produtos, usuários e fornecedores;<br>
 
 <b>-> RNF</b><br>
 RNF1 - O sistema deve utilizar o banco de dados MySQL;<br>
