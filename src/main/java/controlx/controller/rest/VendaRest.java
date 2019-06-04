@@ -40,6 +40,18 @@ public class VendaRest {
 		List<Venda> vendas = (List<Venda>) vendaRepository.findAll();
 		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/listar/{dataInicio}&{dataFim}", produces = "application/json")
+	public ResponseEntity<List<Venda>> listarPorData(@PathVariable("dataInicio") String dataInicio, @PathVariable("dataFim") String dataFim) {
+		String[] data = dataInicio.split("-");
+		LocalDate inicio = LocalDate.of(Integer.parseInt(data[2]), Integer.parseInt(data[1]), Integer.parseInt(data[0]));
+		
+		data = dataFim.split("-");
+		LocalDate fim = LocalDate.of(Integer.parseInt(data[2]), Integer.parseInt(data[1]), Integer.parseInt(data[0]));
+		
+		List<Venda> vendas = (List<Venda>) vendaRepository.findVendaByData(inicio, fim);
+		return new ResponseEntity<List<Venda>>(vendas, HttpStatus.OK);
+	}
 
 	@PostMapping(value = "/cadastrar", produces = "application/json")
 	public ResponseEntity<Venda> cadastrar(@RequestBody Venda venda) {

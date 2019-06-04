@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Transactional
 public class ProdutoVenda implements Serializable {
@@ -28,43 +30,42 @@ public class ProdutoVenda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull(message = "Digite um nome.")
-	@NotEmpty(message = "Digite um nome.")
 	private String nome;
 
-	@NotNull(message = "Digite um preço.")
 	private BigDecimal preco;
 
-	@NotNull(message = "Digite uma quantidade.")
 	private BigDecimal qtd;
 
-	@NotNull(message = "Escolha um tipo.")
-	@NotEmpty(message = "Escolha um tipo.")
 	private String tipoUn;
 
-	@NotNull(message = "Digite um estoque mínimo.")
+	@JsonIgnore
 	private BigDecimal estoqueMin;
 
-	@NotNull(message = "Escolha uma categoria")
-	@ManyToOne
-	@JoinColumn(name = "categoria_id")
-	private Categoria categoria = new Categoria();
+//	@JsonIgnore
+//	@NotNull(message = "Escolha uma categoria")
+//	@ManyToOne
+//	@JoinColumn(name = "categoria_id")
+//	private Categoria categoria = new Categoria();
 
-	@NotNull(message = "Digite a url da imagem.")
-	@NotEmpty(message = "Digite a url da imagem.")
-	private String imagemUrl;
+//	@JsonIgnore
+//	@NotNull(message = "Digite a url da imagem.")
+//	@NotEmpty(message = "Digite a url da imagem.")
+//	private String imagemUrl;
 
 	@Value("0")
 	private String codigoBarras;
 	
-	@NotNull(message = "Escolha um fornecedor")
-	@ManyToOne
-	@JoinColumn(name = "fornecedor_id")
-	private Fornecedor fornecedor = new Fornecedor();
+//	@JsonIgnore
+//	@NotNull(message = "Escolha um fornecedor")
+//	@ManyToOne
+//	@JoinColumn(name = "fornecedor_id")
+//	private Fornecedor fornecedor = new Fornecedor();
 
-	@Value("false")
-	private boolean deleted;
+//	@JsonIgnore
+//	@Value("false")
+//	private boolean deleted;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="venda_id")
 	private Venda venda = new Venda();
@@ -115,38 +116,6 @@ public class ProdutoVenda implements Serializable {
 
 	public void setEstoqueMin(BigDecimal estoqueMin) {
 		this.estoqueMin = estoqueMin;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public boolean isDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
-	public String getImagemUrl() {
-		return imagemUrl;
-	}
-
-	public void setImagemUrl(String imagemUrl) {
-		this.imagemUrl = imagemUrl;
 	}
 
 	public String getCodigoBarras() {

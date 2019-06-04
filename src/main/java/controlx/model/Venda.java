@@ -30,6 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import controlx.repository.UsuarioRepository;
 
@@ -46,6 +47,7 @@ public class Venda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@JsonIgnoreProperties({"cpf","sexo","dataNasc","telefone","cep","num","rua","comp","bairro","cidade","estado","login","senha","imagemUrl"})
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
 	private Usuario usuario;

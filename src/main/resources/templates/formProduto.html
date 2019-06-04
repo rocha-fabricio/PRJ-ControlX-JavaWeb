@@ -77,12 +77,12 @@
 										<div class="form-group col-md-3">
 											<label for="preco">Preço:</label> <input type="number"
 												class="form-control" name="preco" placeholder="Preço"
-												th:field="*{preco}" required>
+												th:field="*{preco}" required step="0.01">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="qtd">Quantidade:</label> <input type="number"
 												class="form-control" name="qtd" placeholder="Quantidade"
-												th:field="*{qtd}" required>
+												th:field="*{qtd}" required step="0.01">
 										</div>
 										<div class="form-group col-md-3">
 											<label for="un">Unidade de medida:</label> <select
@@ -108,7 +108,7 @@
 											<label for="qtdMin">Quantidade minima:</label> <input
 												type="number" class="form-control" name="estoqueMin"
 												placeholder="Quantidade minima" th:field="*{estoqueMin}"
-												required>
+												required step="0.01">
 										</div>
 									</div>
 									<div class="form-row text-center">

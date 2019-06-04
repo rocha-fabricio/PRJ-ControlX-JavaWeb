@@ -55,12 +55,12 @@ public class UsuarioController {
 		return modelAndView;
 	}
 
-	@GetMapping("**/remover/{idusuario}")
+	@GetMapping("/remover/{idusuario}")
 	public ModelAndView excluir(@PathVariable("idusuario") Long idusuario) {
 		Optional<Usuario> u = usuarioRepository.findById(idusuario);
 		u.get().setDeleted(true);
 		usuarioRepository.save(u.get());
-		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		ModelAndView modelAndView = new ModelAndView("redirect:/usuarios");
 		return modelAndView;
 	}
 
@@ -83,7 +83,7 @@ public class UsuarioController {
 		
 		//Se não tiver erros...
 		usuarioRepository.save(usuario);
-		ModelAndView modelAndView = new ModelAndView("redirect:/estoque");
+		ModelAndView modelAndView = new ModelAndView("redirect:/usuarios");
 		return modelAndView;
 	}
 

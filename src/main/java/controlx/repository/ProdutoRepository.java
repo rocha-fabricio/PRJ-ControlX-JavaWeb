@@ -22,7 +22,7 @@ public interface ProdutoRepository extends CrudRepository<Produto, Long>{
 	@Query("SELECT p FROM Produto p WHERE p.codigoBarras = ?1 AND deleted = 0")
 	Produto findProdutoByCodigo(String codigo);
 	
-	@Query("SELECT p FROM Produto p WHERE p.id != ?1 AND p.codigoBarras = ?2 AND deleted = 0")
+	@Query("SELECT p FROM Produto p WHERE p.id != ?1 AND p.codigoBarras = ?2")
 	List<Produto> verificarCodigoExistente(Long id, String codigo);
 	
 	@Override

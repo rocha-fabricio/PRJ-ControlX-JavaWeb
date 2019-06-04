@@ -70,7 +70,7 @@ public class ProdutoController {
 	}
 
 	@PostMapping("**/salvar")
-	public ModelAndView salvar(@Valid Produto produto, BindingResult bindingResult) {
+	public ModelAndView salvar(@Valid Produto produto, BindingResult bindingResult, String codigoAtual) {
 		// Verifica erros no formulário
 		List <Produto> p = produtoRepository.verificarCodigoExistente(produto.getId(), produto.getCodigoBarras());
 		if (bindingResult.hasErrors() || !p.isEmpty()) {
